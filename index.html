@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <script type="text/javascript" charset="UTF-8"
+ src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"></script>
+    <!-- To automatically render math in text elements -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="icon" type="image/png" href="alex-assets/mlu_robot.png" />
+    <link rel="stylesheet" href="alex-assets/styles/normalize.css" />
+    <link rel="stylesheet" href="alex-assets/styles/font.css" />
+    <link rel="stylesheet" href="alex-assets/styles/katex.css" />
+    <link rel="stylesheet" href="alex-assets/styles/global.css" />
+    <link rel="stylesheet" href="alex-assets/bundle.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <!--<script defer src="alex-assets/bundle.js"></script> this does loads -->
+
+    <!-- meta tags -->
+    <title>Bregman Divergences</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="A visual, interactive explanation of Bregman Divergences."
+    />
+    <meta name="author" content="Alexander Cheetham" />
+    <!-- <meta
+      name="news_keywords"
+      content="linear regression classification threshold binary visual machine learning mean squared error r-squared gradient descent closed form least squares interpretability multivariate"
+    />
+    -->
+    <meta property="og:title" content="Bregman Divergences" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+
+<body>
+  <section id="intro" style=' width: 60%; margin: auto;text-align: center' >
+      <h1 id="intro-hed">Bregman Divergences</h1>
+      <h2 id="intro-sub" style='font-family: "Amazon Ember Mono"'>A Visual Introduction to Bregman Divergences</h2>
+      <h3 id="intro__date"  style='font-family: "Amazon Ember Mono"'><a >Alexander Cheetham</a>, September 2022</h3>
+</section>
+
+<br>
+<section class='panel'>
+<h2 class="body-header">Introduction</h2>
+<p class="body-text">
+<span class="bold">Some subtitles will go here</span>
+<br>
+I will Fill the introduction in retrospectively once the project is complete
+</p>
+</section>
+<section class='panel'>
+<h2 class="body-header">History</h2>
+<p class="body-text">
+The Bregman divergence first appeared in a paper on solutions to convex
+programming problems.
+<br>
+<img src="./alex-assets/images/paper-title.png" alt="Bregman Paper">
+<br>
+Appearing first in the section below.
+<br>
+<br>
+<img src="./alex-assets/images/Definition.png" alt="Bregman Paper">
+<br>
+The definition of a Bregman divergence (retrospectively named such) was defined
+in equation (1.4) as a result of trying a function that satisfied the
+conditions below.
+<br>
+<br>
+<img src="./alex-assets/images/Conditions1.png" alt="Bregman Paper">
+<img src="./alex-assets/images/Conditions2.png" alt="Bregman Paper">
+<br>
+We will go deeper into some of these properties later in the article.
+</p>
+</section>
+<section class='panel'>
+<h2 class="body-header">Motivation and Derivation</h2>
+<p class='body-text'>
+The motivation for studying Bregman divergences comes from the idea of trying to
+generalise the definition of squared Euclidean distance to a larger class of
+distances that share the same properties. Alongside this, as we will see later
+Bregman divergences have strong ties to applications in probability, machine
+learning and clustering. \(\textcolor{red}{CITE\, mirrodescient motivation}\)
+<br>
+<br>
+With this motivation in mind we will first generalise the
+squared Euclidean distance(SED) between two points to a Bregman Divergence. Given two
+points \( x,y \in \, \mathbb{R}^n \) the SED is: \(\textcolor{red}{CITE\, webarchive}\)
+$$d^2(x,y):=\sum_{i=1}^{n} (x_i - y_i)^2 $$
+We can rewrite the definition of the
+SED in terms of the inner product (\( \langle x,y \rangle = \sum_{i=1}^{d} x_iy_i  \) ).
+$$d^2(x,y):=\sum_{i=1}^{n} (x_i - y_i)^2 = \langle x-y,x-y \rangle $$
+Then after some manipulation we get.
+$$d^2(x,y) =  \langle x-y,x-y \rangle = \mid\mid x \mid\mid^2 -
+ \mid\mid y \mid\mid^2 - \langle 2y,x-y \rangle $$
+
+ <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#proof1" aria-expanded="false" aria-controls="collapseExample">
+    Explanation
+  </button>
+  </p>
+  <div class="collapse" id="proof1">
+  <div class="card card-body body-text">
+    <p class='body-text'>
+      $$\langle x-y,x-y \rangle=||x||^2 + ||y||^2 + ||2yx||$$
+      $$||x||^2 + ||y||^2 + ||2yx|| = ||x||^2 - ||y||^2 + ||2y^2||+ ||2yx||$$
+      $$||x||^2 - ||y||^2 + ||2y^2||+ ||2yx||=||x||^2- ||y||^2 - (||2y^2||- ||2yx||)$$
+      $$\langle 2y,x-y \rangle = |2y^2||- ||2yx||$$
+      $$||x||^2- ||y||^2 - (||2y^2||- ||2yx||)=||x||^2- ||y||^2 - \langle 2y,x-y \rangle$$
+  </p>
+  </div>
+</div>
+<p class="body-text">
+And after noticing that \( \frac{d}{dy}||y^2|| = 2y \) we can now rewrite the
+equation in terms of the derivative of a function namely \( f(x)=x^2\)
+$$d^2(x,y) = f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) $$
+<br>
+After comparing to bregman's paper below we see that the definitions do indeed
+match and therefore SED is a bregman divergence!
+<br>
+<img src="./alex-assets/images/Definition.png" alt="Bregman Paper">
+<br>
+This also lends itself to a particularly nice geometrical interpretation if we
+realise that \( f(y) + \langle\nabla f(y),x-y\rangle \) is the tangent line of f
+at y.
+<br>
+<br>
+<div id="box" class="jxgbox" style="width:500px; height:500px; margin-left:30%"></div>
+<script type="text/javascript">
+
+
+ var board = JXG.JSXGraph.initBoard('box', {boundingbox: [-10, 10, 10, -1], axis:true});
+ board.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
+
+ theSlider = board.create('slider',[[-9,8],[-4,8],[0,0.1,1]],
+  {snapWidth:0.05});
+  board.create('text',[-9,8.5,
+   function(){
+
+     return 'f(x) = '+Math.round(theSlider.Value()* 100) / 100+'x^2';
+   }], {fontSize: 15,})
+ theFct = board.create('functiongraph',
+   [function(x){return theSlider.Value()*x*x;}],{strokeColor:'#000',strokeWidth:2, highlight: false});
+ yGlider = board.create('glider',[theFct],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+ yGlider.moveTo([1.68,0.56])
+ board.create('tangent', [yGlider], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
+ xGlider = board.create('glider',[theFct],{name:'x', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+ xGlider.moveTo([5.83,6.79])
+
+
+
+ c = yGlider.Y()-2*theSlider.Value()*yGlider.X()**2
+ yout = 2*theSlider.Value()*yGlider.X()*xGlider.X()+c
+ jl = board.create('segment',[xGlider,[xGlider.X(),yout]],{strokeColor:'#013081',strokeWidth:3, highlight: false});
+
+ board.create('text',[2,8.5,
+  function(){
+
+    return '||x-y||^2 = '+Math.round((xGlider.Y()-yout)**2* 100) / 100;
+  }], {fontSize: 15,})
+ xGlider.on('up', function(e){
+    c = yGlider.Y()-2*theSlider.Value()*yGlider.X()**2
+    yout = 2*theSlider.Value()*yGlider.X()*xGlider.X()+c
+    board.removeObject(jl);
+    board.update()
+    jl = board.create('segment',[xGlider,[xGlider.X(),yout]],{strokeColor:'#013081',strokeWidth:3, highlight: false});
+});
+yGlider.on('up', function(f){
+   board.removeObject(jl);
+});
+theSlider.on('down', function(f){
+   board.removeObject(jl);
+});
+
+
+
+</script>
+<br>
+<br>
+</p>
+<p class='body-text'>
+  Handily, if we state explicitly that our distance measure must be non-negative
+  we can redefine our distance measure as
+  $$d^2(x,y) := f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) \geq 0$$
+  This tells us that function must lie above the tangent line for all \(x,y\)
+  and gives the following inequality.
+  $$f(x) \geq f(y) + \langle\nabla f(y),x-y\rangle $$
+  Which is precisely the definition, assuming the function is appropriately
+  differentiable, the definition of a convex function.
+  <br>
+  <br>
+<span class="bold">Exploration of the formal definition</span>
+The complete definition of a bregman divergence is presented below
+<br>
+  <span style='font-size: 30px; color: var(--smile);'>·</span>let F : \( \Omega \rightarrow \mathbb{R} \) is continuously differentiable &
+ strictly convex function on the convex set \(\Omega\)<br>
+ <span style='font-size: 30px; color: var(--smile);'>·</span>
+  \( F(x) - (F(y) + \langle\nabla F(y),x-y\rangle) \)
+
+<br>
+</p>
+
+</section>
+
+
+
+</body>
