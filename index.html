@@ -22,11 +22,13 @@
     <link rel="stylesheet" href="alex-assets/bundle.css" />
     <link rel="stylesheet" href='success.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
     <!--<script defer src="alex-assets/bundle.js"></script> this does loads -->
 
@@ -67,10 +69,18 @@
 <section class='panel'>
 <h2 class="body-header">Introduction</h2>
 <p class="body-text">
-<span class="bold">Some subtitles will go here</span>
-<br>
-I will Fill the introduction in retrospectively once the project is complete
+Bregman divergences are a widely used mathematical concept in machine learning that are often discussed
+ in theoretical papers, but can be challenging to understand for those encountering them for the first time.
+  These divergences are significant because of their usefulness in many areas of machine learning such as
+  clustering and matrix approximations \(\textbf{cite}\).
+   However, the formalism-heavy Wikipedia page on Bregman divergences may not be the most accessible
+    resource for beginners. In this regard, this page aims to provide a comprehensive and easy-to-understand
+     introduction to Bregman divergences. It will cover their definition, derivation, and useful properties,
+      while also discussing the role they play in machine learning. Additionally, interactive graphs will be
+       provided to enhance understanding.
 </p>
+<div id='bibl'>
+</div>
 </section>
 <section class='panel'>
 <h2 class="body-header">History</h2>
@@ -235,7 +245,7 @@ The complete definition of a bregman divergence is presented below
 <br>
 </p>
 <p >
-<nav style='width:45%;margin:auto;'>
+<nav style='width:80%;margin:auto;'>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a  style='color: #000'class="nav-item nav-link body-text" id="nav-convex-tab" data-toggle="tab"
     href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Convex Set</a>
@@ -247,7 +257,7 @@ The complete definition of a bregman divergence is presented below
 
   </div>
 </nav>
-<div class="tab-content card body-text" id="nav-tabContent" style='width:45%;margin:auto;'>
+<div class="tab-content card body-text" id="nav-tabContent" style='width:100%;margin:auto;'>
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-contdiff-tab">
     The derivative must also be continuous.</div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-strcon-tab">
@@ -262,46 +272,7 @@ The complete definition of a bregman divergence is presented below
     line between any pair of points
     on the curve is above the curve including the intersection of the line and the
     curve.
-    <!--
-    <div id="box2" class="jxgbox" style="width:90%; height:50vh; margin: auto;"></div>
-    <script type="text/javascript">
-     var board2 = JXG.JSXGraph.initBoard('box2', {boundingbox: [-10, 10, 10, -1]
-       , axis:true, showNavigation:false});
-     function2 = board2.create('functiongraph',
-       [function(x){return 0.1*x*x;}],{strokeColor:'#000',strokeWidth:2, highlight: false});
-
-
-    Glider1 = board2.create('glider',[function2],{name:'x1', highlight: true,
-    strokeColor:'#013081',fillColor:'#013081',fillOpacity: 0, strokeWidth: 1});
-    Glider1.moveTo([-3,0.9])
-
-    Glider2 = board2.create('glider',[function2],{name:'x2', highlight: false,
-    strokeColor:'#013081',fillColor:'#013081',fillOpacity: 0, strokeWidth: 1});
-    Glider2.moveTo([3,0.9])
-
-    var segment = board2.create('segment',[Glider1,Glider2],{strokeColor:'#013081',strokeWidth:3, highlight: false})
-
-
-      Glider1.on('up', function(e){
-        x_interval = [Glider1.X(), Glider2.X()];
-     });
-     Glider2.on('up', function(e){
-       x_interval = [Glider1.X(), Glider2.X()];
-    });
-    var x_interval = [Glider1.X(), Glider2.X()];
-       var wrap = function(x) {
-          var y = theSlider.Value()*x*x;
-          if (x_interval[0] < x && x < x_interval[1]
-      ) {
-          return y;
-      } else {
-          return NaN;
-      }
-  }
-     fct_seg = board2.create('functiongraph',
-       [wrap,-10,10],{strokeColor:'#FF9900',strokeWidth:2, highlight: false});
-
-     </script>--></div>
+    </div>
 </div>
 </p>
 
@@ -309,27 +280,23 @@ The complete definition of a bregman divergence is presented below
 <br>
 </section>
 <section class='panel'>
-<h2 class="body-header">Plots for Various Loss functions</h2>
-<p class='body-text'>
-  <span style='font-size: 30px; color: var(--smile);'>·</span>input function - done<br>
-  <span style='font-size: 30px; color: var(--smile);'>·</span>check convexity - done <br>
-  <span style='font-size: 30px; color: var(--smile);'>·</span>plot function
-  (slider for p,q)<br>
-  <span style='font-size: 30px; color: var(--smile);'>·</span>plot bregman div<br>
-</p>
+<h2 class="body-header">General Bregman Divergence Plots: </h2>
 <br>
-<h2 class="body-header">Convexity Checker: </h2>
-<br>
-<p style='width:45%;margin:auto;text-align:center;'>
 
+<div style='width:80%;margin:auto;text-align: center'>
+  <p>
+    Below is a widget that will test the convexity of a function and if the function
+    is of form \(f: \mathbb{R} \rightarrow \mathbb{R}\) the accompanying bregman plots will be displayed.
+  </p>
 <input class="btn btn-primary" onclick="reset_panels()" type="reset" value="↺ Reset">
+</div>
 <br>
 <br>
 <div id='inputeq' class='body-text' style='width:45%;margin:auto;text-align: center'>
     <p> Please enter your continuous function of class \(f:\mathbb{R}^n \rightarrow \mathbb{R}\)</p>
     <label for="lossfunc">Generator function</label>
     <input type="text" id="lossfunc">
-    <p>The function must have a second derivative that exists for computation tractability</p>
+    <p>The function must have a second derivative that exists for computational tractability</p>
     <button class="btn btn-primary" id="generate" onclick="generate()">Generate</button>
     <br>
 </div>
@@ -347,9 +314,25 @@ display:none;'>
   <div style='text-align:center;margin:auto;' id='convexity_test'></div>
 
   </div>
+  <div style='width:90%;margin:auto;text-align: center;display:none;'  id=panel4>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          Generator Function:
+          <div id='generatorlatex'></div>
+          <div id="generatorbox" class="jxgbox" style="width:100%; height:50vh; margin: auto;"></div>
+        </div>
+        <div class="col-sm">
+          Bregman Divergence:
+          <div id='divergencelatex'></div>
+          <div id="divergencebox" class="jxgbox" style="width:100%; height:50vh; margin: auto;"></div>
+        </div>
+      </div>
+    </div>
+
+    </div>
 
 
-</p>
 <script>
     var inputeq = document.getElementById('inputeq');
     var panel2 = document.getElementById('panel2');
@@ -359,6 +342,12 @@ display:none;'>
     var var_error = document.getElementById('variable_error')
     var bounds = document.getElementById('bounds_boxes')
     var convexity_div = document.getElementById('convexity_test')
+
+    function linspace(start, stop,dt, endpoint = true) {
+        const step = dt;
+        const num = (1/dt)*((stop -start)  )+1
+        return Array.from({length: num}, (_, i) => start + step * i);
+    }
 
     function generate() {
         try {
@@ -408,8 +397,10 @@ display:none;'>
       panel3.style.display = 'block';
       var inputs = panel2.querySelectorAll("input");
       bounds=[]
+      bounds_copy=[]
       inputs.forEach(function(k){
         bounds.push(parseFloat(k.value))
+        bounds_copy.push(parseFloat(k.value))
       })
       stepsizes = []
       var i = Math.floor(bounds.length / 3);
@@ -428,13 +419,28 @@ display:none;'>
         convexity_div.appendChild(morewriting)
         convexity_div.appendChild(writing)
         convexity_div.appendChild(lastwriting)
-        button.classList.add("btn","btn-primary")
-        button.setAttribute('id','generate3')
 
-        button.onclick = plot_user_breg(plot_data)
-        button.innerHTML = 'Plot.'
-        convexity_div.appendChild(button)
-
+        //console.log(nerdamer(input.value).variables())
+        if(nerdamer(input.value).variables().length==1){
+          button = document.createElement('button')
+          button.classList.add("btn","btn-primary")
+          button.setAttribute('id','generate3')
+          original_variable = nerdamer(input.value).variables()[0]
+          p_var = nerdamer(input.value).sub(original_variable,"p")
+          q_var = nerdamer(input.value).sub(original_variable,"q")
+          diff_q = nerdamer.diff(q_var,'q')
+          //difference_p_q = p_var.subtract(q_var)
+          innerprod = diff_q.multiply(nerdamer('p').subtract(nerdamer('q')));
+          bregdiv = p_var.subtract(q_var.add(innerprod))
+          plot_data = {
+            generator: nerdamer(input.value).sub(original_variable,"x"),
+            bregdiv: bregdiv,
+            bounds: bounds_copy
+          }
+          button.onclick = plot_user_breg(plot_data)
+          button.innerHTML = 'Plot.'
+          convexity_div.appendChild(button)
+        }
 
       } else{
         writing = document.createElement('div')
@@ -449,6 +455,137 @@ display:none;'>
       }
 
     }
+
+
+
+  function minima_over_range(f,range,div=null){
+    linspace_var = linspace(range[0],range[1],range[2])
+    if (div==null){
+      minima = f(range[0])
+      for (var i=0;i<linspace_var.length;i+=1){
+        minima = Math.min(minima,f(linspace_var[i]))
+      }
+      return minima
+    } else{
+      minima = f(range[0],div)
+      for (var i=0;i<linspace_var.length;i+=1){
+        minima = Math.min(minima,f(linspace_var[i],div))
+      }
+      return minima
+    }
+
+  }
+
+  function plot_user_breg(data){
+    nerdamer.clearVars()
+    panel3.style.display = 'none';
+    generator_string = "\\bold{\\phi(x)}=".concat(data.generator.toTeX())
+    katex.render(generator_string,document.getElementById('generatorlatex'))
+    generator_f = data.generator.buildFunction()
+    top_left= Math.max(generator_f(data.bounds[0]),generator_f(data.bounds[1]))
+    bottom_right = minima_over_range(generator_f,data.bounds)
+    bounds_diff = bounds[1]-bounds[0]
+    y_diff = Math.abs(top_left - bottom_right)
+    var generatorboard = JXG.JSXGraph.initBoard('generatorbox', {boundingbox:[bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff+0.5,bounds[1]+0.3*bounds_diff,bottom_right-(0.3*y_diff+0.5)], axis:true, showNavigation:false});
+    generatorboard.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
+    generator = generatorboard.create('functiongraph', [function(x){ return generator_f(x); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    //fix_generator = generatorboard.create('slider',[[bounds[0]+Math.abs(0.3*bounds[0]+5),top_left-0.3*top_left],[bounds[1]-Math.abs(0.3*bounds[1]+5),top_left-0.3*top_left],[0,0.7,1]],{snapWidth:0.05,label:{autoPosition: true, offset:[100, 100]}});
+    //fix_generator = generatorboard.create('glider',[generator],{name:'x', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+    fix_generator = generatorboard.create('slider',
+    [[bounds[0],0.75*(top_left+0.3*y_diff+0.5)],
+    [bounds[1],0.75*(top_left+0.3*y_diff+0.5)],[bounds[0],(bounds[0]+bounds[1])/2,bounds[1]]],
+    {
+      label: {fontSize: 18, strokeColor: 'black'},
+              name: 'xyz',
+               visible: true,
+              suffixLabel: 'x = ',
+    }
+    );
+    generator_fixed_point = generatorboard.create('glider', [fix_generator.Value(), generator_f(fix_generator.Value()),generator],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10]}});
+    generator_fixed_point.setAttribute({ fixed: true });
+    generator_tangent = generatorboard.create('tangent', [generator_fixed_point], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
+    generator_val = fix_generator.Value()
+    fix_generator.on('up', function(i){
+      generator_val = fix_generator.Value()
+      generatorboard.removeObject(generator_fixed_point)
+      generatorboard.removeObject(generator_tangent)
+      generatorboard.removeObject(generator_breg_dist_seg)
+      generator_fixed_point = generatorboard.create('glider', [fix_generator.Value(), generator_f(fix_generator.Value()),generator],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10]}});
+      generator_fixed_point.setAttribute({ fixed: true });
+      generator_tangent = generatorboard.create('tangent', [generator_fixed_point], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
+      generator_breg_dist_seg = generatorboard.create('segment',[generator_fixed_y,[generator_fixed_y.X(),generator_fixed_y.Y()-divergence_f(generator_fixed_y.X(),generator_val)]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+      divergenceboard.removeObject(divergence);
+      divergenceboard.removeObject(divergence_fixed_point);
+      divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10]}});
+      divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(generator_val,x); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+      free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(generator_val,fix_free.Value()),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[10, 10]}});
+      free_eval = divergence_f(free_glider.X(),generator_val)
+      breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+      breg_dist_seg.setLabel('D(x||y)= '+Math.round(free_eval*100)/100)
+
+      free_glider.on('up', function(i){
+        free_eval = divergence_f(free_glider.X(),generator_val)
+        divergenceboard.removeObject(breg_dist_seg);
+        breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+        breg_dist_seg.setLabel('D(x||y)= '+Math.round(free_eval*100)/100)
+        divergenceboard.update()
+      });
+      divergenceboard.update()
+    });
+    generatorboard.fullUpdate()
+
+    divergence_string = "d_{\\phi}(x,y)=".concat(nerdamer.simplify(data.bregdiv.sub('p','x').sub('q','y').toString()).toTeX())
+    katex.render(divergence_string,document.getElementById('divergencelatex'))
+    //nerdamer.setVar('p',0.7)
+    divergence_f = data.bregdiv.buildFunction()
+    //console.log(divergence_f,generator_val,divergence_f(5,generator_val))
+    top_left= Math.max(divergence_f(data.bounds[0],generator_val),divergence_f(data.bounds[1],generator_val))
+    bottom_right = minima_over_range(divergence_f,data.bounds,generator_val)
+    bounds_diff = bounds[1]-bounds[0]
+    y_diff = Math.abs(top_left - bottom_right)
+    var divergenceboard = JXG.JSXGraph.initBoard('divergencebox', {boundingbox:[bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff,bounds[1]+0.3*bounds_diff,bottom_right-0.3*y_diff], axis:true, showNavigation:false});
+    divergenceboard.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
+    fix_free = divergenceboard.create('slider',
+    [[bounds[0],0.75*(top_left+0.3*y_diff)],
+    [bounds[1],0.75*(top_left+0.3*y_diff)],[bounds[0],3*(bounds[0]+bounds[1])/4,bounds[1]]],
+    {
+      label: {fontSize: 18, strokeColor: 'black'},
+              name: 'xyz',
+               visible: true,
+              suffixLabel: 'y = ',
+    }
+    );
+    divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(x,generator_val); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(fix_free.Value(),generator_val),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[-10, 10]}});
+    free_glider.setAttribute({ fixed: true });
+    divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10],label:{autoPosition: true, offset:[10, 10]}}});
+    free_eval = divergence_f(generator_val,free_glider.X())
+    breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+    breg_dist_seg.setLabel('D(x||y)= '+Math.round(free_eval*100)/100)
+    generator_fixed_y = generatorboard.create('point', [free_glider.X(), generator_f(free_glider.X())],{ highlight: false,name:'y',fixed:true,label:{autoPosition: true, offset:[-10, 10],label:{autoPosition: true, offset:[10, 10]}}});
+           generator_breg_dist_seg = generatorboard.create('segment',[generator_fixed_y,[generator_fixed_y.X(),generator_fixed_y.Y()-divergence_f(generator_fixed_y.X(),generator_val)]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+    // generator_breg_dist_seg.setLabel('D(x||y)= '+Math.round(free_eval*100)/100)
+     fix_free.on('up', function(i){
+       generator_val = fix_generator.Value()
+       divergenceboard.removeObject(free_glider)
+       free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(generator_val,fix_free.Value()),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+       free_glider.setAttribute({ fixed: true });
+       generatorboard.removeObject(generator_fixed_y)
+       generatorboard.removeObject(generator_breg_dist_seg)
+       generator_fixed_y = generatorboard.create('point', [free_glider.X(), generator_f(free_glider.X())],{ highlight: false,name:'y',fixed:true,label:{autoPosition: true, offset:[-10, 10],label:{autoPosition: true, offset:[10, 10]}}});
+       free_eval = divergence_f(free_glider.X(),generator_val)
+       generator_breg_dist_seg = generatorboard.create('segment',[generator_fixed_y,[generator_fixed_y.X(),generator_fixed_y.Y()-divergence_f(generator_fixed_y.X(),generator_val)]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+       divergenceboard.removeObject(breg_dist_seg);
+       breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+       breg_dist_seg.setLabel('D(x||y)= '+Math.round(free_eval*100)/100)
+       divergenceboard.update()
+     });
+    divergenceboard.fullUpdate()
+    panel4 = document.getElementById('panel4');
+    panel4.style.display = 'block';
+  }
+
+
 
   function isConvex(fn, bounds,variables) {
       //function that evaluates at midpoint and compares to assess if
@@ -501,15 +638,8 @@ display:none;'>
         return true;
     }
 
-    function linspace(start, stop,dt, endpoint = true) {
-        const step = dt;
-        const num = (1/dt)*((stop -start)  )+1
-        return Array.from({length: num}, (_, i) => start + step * i);
-    }
 
-
-
-    function reset_panels() {
+function reset_panels() {
       counter=0
       panel2.style.display = "none";
       inputeq.style.display = "block";
@@ -519,8 +649,13 @@ display:none;'>
           }
       bounds = document.getElementById('bounds_boxes')
       bounds.innerHTML = ''
-      convexity_test = document.getElementById('convexity_test')
-      convexity_test.innerHTML=''
+      panel3.style.display='none';
+      document.getElementById('convexity_test').innerHTML = ''
+      panel4.style.display = 'none';
+      //generatorboard.removeObject(generator_f)
+      //generatorboard.update()
+      //divergenceboard.removeObject(divergence_f)
+      //generatorboard.update()
 
     }
 
@@ -531,285 +666,69 @@ display:none;'>
 <br>
 <br>
 <h2 class="body-header">Common Loss Functions:</h2>
-<div style='width:45%;margin:auto;text-align:center;'>
-  <div class="btn-group dropdown">
-    <button style='margin:auto;' class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Divergence:
-    </button>
-
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><span class="dropdown-item-text">Select a Divergence: </span></li>
-      <a class="dropdown-item" id='sql'>Squared Loss</a>
-      <a class="dropdown-item" id='lgl'>Logistic Loss</a>
-      <a class="dropdown-item" id='isd'>Itakura-Saito Distance</a>
-      <a class="dropdown-item" id='sed'>Squared Euclidean Distance</a>
-      <a class="dropdown-item" id='kld'>KL Divergence</a>
-      <a class="dropdown-item" id='gid'>Generalised I-Divergence</a>
+<section style='width:80%;margin:auto;'>
+  <div class="accordion accordion-flush" id="commonlosslist">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        Squared Loss
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#commonlosslist">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
     </div>
-
   </div>
-  <script>
-    const SQL = {
-          domain:  reals,
-          phi: nerdamer('x**2'),
-          dphi: nerdamer('(x-y)**2'),
-          name: 'Squared Loss',
-          bounds: [-10, 10, 10, -1],
-          get fcn() {
-                  f = this.phi.buildFunction()
-                  return f;
-                },
-        }
-    const LGL = {
-          domain: '[0,1]',
-          phi: nerdamer('x*log(x)+(1-x)*log(1-x)'),
-          dphi: nerdamer('x*log(x/y)+(1-x)*log((1-x)/(1-y))'),
-          name: 'Logistic Loss',
-          bounds: [-0.2, 0.2, 1.2, -1.2],
-          get fcn() {
-                  f = this.phi.buildFunction()
-                  return f;
-                },
-      }
-    const ISD = {
-          domain: realplusplus,
-          phi: nerdamer('-log(x)'),
-          dphi: nerdamer('x/y - log(x/y)-1'),
-          name: 'Itakura-Saito Distance',
-          bounds: [-1,10,10,-10],
-          get fcn() {
-                  f = this.phi.buildFunction()
-                  return f;
-                },
-        }
-    const SED = {
-          domain: reald,
-          phi: nerdamer('abs(x)**2'),
-          dphi: nerdamer('abs(x-y)**2'),
-          name: 'Squared Euclidean Distance',
-          bounds: [-10, 10, 10, -1],
-          get fcn() {
-                  f = this.phi.buildFunction()
-                  return f;
-                },
-        }
-        const KLD = {
-              domain: 'd-Simplex',
-              phi: KLDphi,
-              dphi: KLDdphi,
-              name: 'KL-Divergence',
-              bounds: [-0.2, 0.2, 1.2, -1.2],
-              get fcn() {
-                      f = nerdamer('x*log(x)').buildFunction()
-                      return f;
-                    },
-            }
-        const GID = {
-              domain: realdplus,
-              phi: GIDphi,
-              dphi: GIDdphi,
-              name: 'Generalised I-Divergence',
-              bounds: [-0.2, 10, 10, -1],
-              get fcn() {
-                      f = nerdamer('x*log(x)').buildFunction()
-                      return f;
-                    },
-            }
-        const divergences = {
-          sql: SQL,
-          lgl: LGL,
-          isd: ISD,
-          sed: SED,
-          kld: KLD,
-          gid: GID,
-        }
-    $(document).ready(function () {
-    $(".dropdown").hover(function(){
-        $(".dropdown-item").on("click",(function(){
-            dom = document.getElementById('DOM')
-            phi = document.getElementById('PHI')
-            dphi = document.getElementById('DPHI')
-            div = document.getElementById('DIV')
-            //katex.render(,dom)
-            katex.render(divergences[this.id].domain, dom);
-            div.innerHTML = divergences[this.id].name
-            if(this.id=='kld'||this.id=='gid'){
-              katex.render(divergences[this.id].phi,phi)
-              katex.render(divergences[this.id].dphi,dphi)
-              old_board = document.getElementById('box2')
-              old_board.style.display = 'none'
-              bin_board = document.getElementById('box4')
-              KLD_board = document.getElementById('box3')
-              old_board.style.display = 'none'
-              bin_board.style.display = 'block'
-              KLD_board.style.display = 'block'
-            }else{
-              katex.render(divergences[this.id].phi.toTeX(), phi);
-              katex.render(divergences[this.id].dphi.toTeX(), dphi);
-              old_board = document.getElementById('box2')
-              old_board.style.display = 'none'
-              bin_board = document.getElementById('box4')
-              KLD_board = document.getElementById('box3')
-              old_board.style.display = 'block'
-              bin_board.style.display = 'none'
-              KLD_board.style.display = 'none'
-            }
-            cur_mode = divergences[this.id].fcn
-            cur_dphi = divergences[this.id].dphi.buildFunction()
-            board2.setBoundingBox(divergences[this.id].bounds)
-            board2.removeObject(target)
-            board2.removeObject(free)
-            board2.removeObject(tangent)
-            target = board2.create('glider',[divergence],{name:'target', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-            tangent = board2.create('tangent', [target], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
-            free = board2.create('glider',[divergence],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-            board2.update()
-
-
-      }));
-      });
- });
-    </script>
-    <br><br>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        Kullbach Liebler Divergence
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#commonlosslist">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        Bit Entropy
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#commonlosslist">
+      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
+        Burg Entropy
+      </button>
+    </h2>
+    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#commonlosslist">
+      <div class="accordion-body">Placeholder content<code>import numpy</code> for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    </div>
+  </div>
 </div>
-<table style='width:80%;margin:auto;' class="table" id='divtable'>
-  <thead>
-    <tr>
-      <th scope="col">Domain</th>
-      <th scope="col">\( \bold{\phi(x)} \)</th>
-      <th scope="col">\( d_{\phi}(x,y) \)</th>
-      <th scope="col">Divergence</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row" id='DOM'>\(\reals\)</th>
-      <td id= 'PHI'>\(x^2\)</td>
-      <td id='DPHI'>\((x-y)^2\)</td>
-      <td id='DIV'>Squared Loss</td>
-    </tr>
-  </tbody>
-</table>
-<div id="box2" class="jxgbox" style="margin-top:100%;left:0%;width:70%; height:50vh; margin: auto;"></div>
-<script type="text/javascript">
-var cur_mode = SQL.fcn
-var cur_dphi = SQL.dphi.buildFunction(['x','y'])
-var board_bounds = [-10, 10, 10, -1]
-function f(x,mode){
-  return mode(x)
-}
- var board2 = JXG.JSXGraph.initBoard('box2', {boundingbox: board_bounds, axis:true, showNavigation:false});
-  board2.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
-  divergence = board2.create('functiongraph', [function(x){ return f(x,cur_mode); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
-  target = board2.create('glider',[divergence],{name:'target', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-  tangent = board2.create('tangent', [target], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
-  free = board2.create('glider',[divergence],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-  tang_f = nerdamer.diff(SQL.phi,'x').buildFunction()
-  breg_val = cur_dphi(free.X(),target.X())
-   line_seg = board2.create('segment',[free,[free.X(),free.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
-   board2.on('up', function(f){
-     breg_val = cur_dphi(free.X(),target.X())
-     board2.removeObject(line_seg)
-     board2.update()
-     line_seg = board2.create('segment',[free,[free.X(),free.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
-     line_seg.setLabel('D(x||y)= '+Math.round(breg_val*100)/100)
-   });
+  </section
+<section>
+  <br>
+  <br>
+  <h2  class="body-header">Applications of Bregman Divergences:</h2>
+  <p style='padding-bottom:1%' class='body-text'>
+    Bregman divergences are used to measure the dissimilarity between two probability distributions as such some examples of applications of Bregman divergences include:
+<br>
+<ol type='1' class='body-text'>
+  <li style='padding-bottom:1%'>\( \textbf{Clustering}\): Bregman divergences can be used to define the dissimilarity between different clusters, which can then be used in algorithms such as k-means clustering.</li>
+  <li style='padding-bottom:1%'>\( \textbf{Image compression}\): Bregman divergences can be used to measure the dissimilarity between an original image and a compressed version of the image, which can be used to optimize the compression algorithm.</li>
+  <li style='padding-bottom:1%'>\( \textbf{Machine learning}\): Bregman divergences can be used as loss functions in machine learning algorithms, such as in the optimization of neural networks.</li>
+  <li style='padding-bottom:1%'>\( \textbf{Recommender systems}\): Bregman divergences can be used to measure the dissimilarity between different users' preferences and can be used to make personalized recommendations.</li>
+  <li style='padding-bottom:1%'>\( \textbf{Signal processing}\): Bregman divergences can be used in signal processing to measure the dissimilarity between a signal and a compressed version of the signal, which can be used to optimize the compression algorithm.</li>
+</ol>
 
-
-</script>
-<div id="box4" class="jxgbox" style="display:none;margin-top:100%;left:0%;width:35%; height:20vh; margin: auto;"></div>
-<div id="box3" class="jxgbox" style="display:none;margin-top:100%;left:0%;width:70%; height:50vh; margin: auto;"></div>
-<script type="text/javascript">
-bin_one = [20,0.7];
-var board3 = JXG.JSXGraph.initBoard('box3', {boundingbox: [-0.1,2,1,-0.1], axis:true, showNavigation:false});
-function KLB(x,params){
-  a = Math.log(params[1]/x)*params[0]*params[1]
-  b= Math.log((1-params[1])/(1-x))*params[0]*(1-params[1])
-  //console.log(a+b)
-  return a + b
-}
-divergence_p = board3.create('functiongraph', [function(x){ return KLB(x,bin_one); },0, 1],{strokeColor:'#000',strokeWidth:2, highlight: false});
-target_p = board3.create('slider',[[0.05,0.1],[0.2,0.1],[0,bin_one[1],1]],{snapWidth:0.05,label:{autoPosition: true, offset:[100, 100]}});
-target_p.setLabel('Target Parameter: p')
-free_p = board3.create('glider',[divergence_p],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-tangent_p = board3.create('segment',[[-0.2,0],[1,0]],{strokeColor:'#FF9900',strokeWidth:1.2, highlight: false,label:{autoPosition: true, offset:[1, 1]}});
-breg_val = KLB(free_p.X(),bin_one)
-line_seg_p = board3.create('segment',[free_p,[free_p.X(),free_p.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
- board3.on('up', function(f){
-   //dist_box = [-3,0.3,Math.round(bin_one[0]),-0.05]
-   board3.removeObject(line_seg_p)
-   breg_val = KLB(free_p.X(),bin_one)
-   console.log(breg_val)
-   distribution_free = stats.binomialDistribution(bin_one[0],free_p.X());
-   board4.removeObject(chart_free)
-   //board4.removeObject(free)
-   board4.update()
-   board3.update()
-   chart_free = board4.create('chart', distribution_free, {
-            chartStyle:'bar',
-            color:'#013081',
-            width:0.1,
-            labels:f,
-            shadow:true
-   });
-   line_seg_p = board3.create('segment',[free_p,[free_p.X(),free_p.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
-   line_seg_p.setLabel('D(p||q)= '+Math.round(breg_val*100)/100)
- });
-target_p.on('up', function(f){
-  bin_one[1] = target_p.Value()
-  board3.removeObject(divergence_p)
-  //board3.removeObject(target)
-  board3.update()
-  divergence_p = board3.create('functiongraph', [function(x){ return KLB(x,bin_one); },0, 1],{strokeColor:'#000',strokeWidth:2, highlight: false});
-  free_p = board3.create('glider',[divergence_p],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
-  var distribution = stats.binomialDistribution(...bin_one);
-  board4.removeObject(chart)
-  board4.update()
-  chart = board4.create('chart', distribution, {
-           chartStyle:'bar',
-           color:'#FF9900',
-           width:0.1,
-           labels:f,
-           shadow:true
-  });
-  board3.update()
-
-});
-
-dist_box = [-3,0.3,bin_one[0]+2,-0.05]
-var board4 = JXG.JSXGraph.initBoard('box4', {boundingbox: dist_box , axis:true, showNavigation:false});
-var data = [
-	{ ID: 1, age: 33 },
-	{ ID: 2, age: 42 },
-	{ ID: 3, age: 27 },
-];
-
-var columns = {
-	ID: 'ordinal',
-	age: 'interval'
-};
-
-var settings = {};
-var stats = new Statistics(data, columns, settings);
-var distribution = stats.binomialDistribution(...bin_one);
-var distribution_free = stats.binomialDistribution(bin_one[0],free.X());
-var chart = board4.create('chart', distribution, {
-         chartStyle:'bar',
-         color:'#FF9900',
-         width:0.1,
-         labels:f,
-         shadow:true
-});
-var chart_free = board4.create('chart', distribution_free, {
-         chartStyle:'bar',
-         color:'#013081',
-         width:0.1,
-         labels:f,
-         shadow:true
-});
-</script>
-</section>
-
+  </p>
+<div style='width:45%;margin:auto; text-align: center'>
+  <span  class="bold">Why would you use other dissimilarity measures?</span>
+</div>
 
 
 </body>

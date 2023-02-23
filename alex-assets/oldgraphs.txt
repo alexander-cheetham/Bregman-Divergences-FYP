@@ -1,0 +1,277 @@
+<div style='width:45%;margin:auto;text-align:center;'>
+  <div class="btn-group dropdown">
+    <button style='margin:auto;' class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Divergence:
+    </button>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><span class="dropdown-item-text">Select a Divergence: </span></li>
+      <a class="dropdown-item" id='sql'>Squared Loss</a>
+      <a class="dropdown-item" id='lgl'>Logistic Loss</a>
+      <a class="dropdown-item" id='isd'>Itakura-Saito Distance</a>
+      <a class="dropdown-item" id='sed'>Squared Euclidean Distance</a>
+      <a class="dropdown-item" id='kld'>KL Divergence</a>
+      <a class="dropdown-item" id='gid'>Generalised I-Divergence</a>
+    </div>
+
+  </div>
+  <script>
+    const SQL = {
+          domain:  reals,
+          phi: nerdamer('x**2'),
+          dphi: nerdamer('(x-y)**2'),
+          name: 'Squared Loss',
+          bounds: [-10, 10, 10, -1],
+          get fcn() {
+                  f = this.phi.buildFunction()
+                  return f;
+                },
+        }
+    const LGL = {
+          domain: '[0,1]',
+          phi: nerdamer('x*log(x)+(1-x)*log(1-x)'),
+          dphi: nerdamer('x*log(x/y)+(1-x)*log((1-x)/(1-y))'),
+          name: 'Logistic Loss',
+          bounds: [-0.2, 0.2, 1.2, -1.2],
+          get fcn() {
+                  f = this.phi.buildFunction()
+                  return f;
+                },
+      }
+    const ISD = {
+          domain: realplusplus,
+          phi: nerdamer('-log(x)'),
+          dphi: nerdamer('x/y - log(x/y)-1'),
+          name: 'Itakura-Saito Distance',
+          bounds: [-1,10,10,-10],
+          get fcn() {
+                  f = this.phi.buildFunction()
+                  return f;
+                },
+        }
+    const SED = {
+          domain: reald,
+          phi: nerdamer('abs(x)**2'),
+          dphi: nerdamer('abs(x-y)**2'),
+          name: 'Squared Euclidean Distance',
+          bounds: [-10, 10, 10, -1],
+          get fcn() {
+                  f = this.phi.buildFunction()
+                  return f;
+                },
+        }
+        const KLD = {
+              domain: 'd-Simplex',
+              phi: KLDphi,
+              dphi: KLDdphi,
+              name: 'KL-Divergence',
+              bounds: [-0.2, 0.2, 1.2, -1.2],
+              get fcn() {
+                      f = nerdamer('x*log(x)').buildFunction()
+                      return f;
+                    },
+            }
+        const GID = {
+              domain: realdplus,
+              phi: GIDphi,
+              dphi: GIDdphi,
+              name: 'Generalised I-Divergence',
+              bounds: [-0.2, 10, 10, -1],
+              get fcn() {
+                      f = nerdamer('x*log(x)').buildFunction()
+                      return f;
+                    },
+            }
+        const divergences = {
+          sql: SQL,
+          lgl: LGL,
+          isd: ISD,
+          sed: SED,
+          kld: KLD,
+          gid: GID,
+        }
+    $(document).ready(function () {
+    $(".dropdown").hover(function(){
+        $(".dropdown-item").on("click",(function(){
+            dom = document.getElementById('DOM')
+            phi = document.getElementById('PHI')
+            dphi = document.getElementById('DPHI')
+            div = document.getElementById('DIV')
+            //katex.render(,dom)
+            katex.render(divergences[this.id].domain, dom);
+            div.innerHTML = divergences[this.id].name
+            if(this.id=='kld'||this.id=='gid'){
+              katex.render(divergences[this.id].phi,phi)
+              katex.render(divergences[this.id].dphi,dphi)
+              old_board = document.getElementById('box2')
+              old_board.style.display = 'none'
+              bin_board = document.getElementById('box4')
+              KLD_board = document.getElementById('box3')
+              old_board.style.display = 'none'
+              bin_board.style.display = 'block'
+              KLD_board.style.display = 'block'
+            }else{
+              katex.render(divergences[this.id].phi.toTeX(), phi);
+              katex.render(divergences[this.id].dphi.toTeX(), dphi);
+              old_board = document.getElementById('box2')
+              old_board.style.display = 'none'
+              bin_board = document.getElementById('box4')
+              KLD_board = document.getElementById('box3')
+              old_board.style.display = 'block'
+              bin_board.style.display = 'none'
+              KLD_board.style.display = 'none'
+            }
+            cur_mode = divergences[this.id].fcn
+            cur_dphi = divergences[this.id].dphi.buildFunction()
+            board2.setBoundingBox(divergences[this.id].bounds)
+            board2.removeObject(target)
+            board2.removeObject(free)
+            board2.removeObject(tangent)
+            target = board2.create('glider',[divergence],{name:'target', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+            tangent = board2.create('tangent', [target], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
+            free = board2.create('glider',[divergence],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+            board2.update()
+
+
+      }));
+      });
+ });
+    </script>
+    <br><br>
+</div>
+<table style='width:80%;margin:auto;' class="table" id='divtable'>
+  <thead>
+    <tr>
+      <th scope="col">Domain</th>
+      <th scope="col">\( \bold{\phi(x)} \)</th>
+      <th scope="col">\( d_{\phi}(x,y) \)</th>
+      <th scope="col">Divergence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" id='DOM'>\(\reals\)</th>
+      <td id= 'PHI'>\(x^2\)</td>
+      <td id='DPHI'>\((x-y)^2\)</td>
+      <td id='DIV'>Squared Loss</td>
+    </tr>
+  </tbody>
+</table>
+<div id="box2" class="jxgbox" style="margin-top:100%;left:0%;width:70%; height:50vh; margin: auto;"></div>
+<script type="text/javascript">
+var cur_mode = SQL.fcn
+var cur_dphi = SQL.dphi.buildFunction(['x','y'])
+var board_bounds = [-10, 10, 10, -1]
+function f(x,mode){
+  return mode(x)
+}
+ var board2 = JXG.JSXGraph.initBoard('box2', {boundingbox: board_bounds, axis:true, showNavigation:false});
+  board2.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
+  divergence = board2.create('functiongraph', [function(x){ return f(x,cur_mode); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+  target = board2.create('glider',[divergence],{name:'target', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+  tangent = board2.create('tangent', [target], {strokeColor:'#FF9900',strokeWidth:2, highlight: false});
+  free = board2.create('glider',[divergence],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+  tang_f = nerdamer.diff(SQL.phi,'x').buildFunction()
+  breg_val = cur_dphi(free.X(),target.X())
+   line_seg = board2.create('segment',[free,[free.X(),free.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+   board2.on('up', function(f){
+     breg_val = cur_dphi(free.X(),target.X())
+     board2.removeObject(line_seg)
+     board2.update()
+     line_seg = board2.create('segment',[free,[free.X(),free.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+     line_seg.setLabel('D(x||y)= '+Math.round(breg_val*100)/100)
+   });
+
+
+</script>
+<div id="box4" class="jxgbox" style="display:none;margin-top:100%;left:0%;width:35%; height:20vh; margin: auto;"></div>
+<div id="box3" class="jxgbox" style="display:none;margin-top:100%;left:0%;width:70%; height:50vh; margin: auto;"></div>
+<script type="text/javascript">
+bin_one = [20,0.7];
+var board3 = JXG.JSXGraph.initBoard('box3', {boundingbox: [-0.1,2,1,-0.1], axis:true, showNavigation:false});
+function KLB(x,params){
+  a = Math.log(params[1]/x)*params[0]*params[1]
+  b= Math.log((1-params[1])/(1-x))*params[0]*(1-params[1])
+  //console.log(a+b)
+  return a + b
+}
+divergence_p = board3.create('functiongraph', [function(x){ return KLB(x,bin_one); },0, 1],{strokeColor:'#000',strokeWidth:2, highlight: false});
+target_p = board3.create('slider',[[0.05,0.1],[0.2,0.1],[0,bin_one[1],1]],{snapWidth:0.05,label:{autoPosition: true, offset:[100, 100]}});
+target_p.setLabel('Target Parameter: p')
+free_p = board3.create('glider',[divergence_p],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+tangent_p = board3.create('segment',[[-0.2,0],[1,0]],{strokeColor:'#FF9900',strokeWidth:1.2, highlight: false,label:{autoPosition: true, offset:[1, 1]}});
+breg_val = KLB(free_p.X(),bin_one)
+line_seg_p = board3.create('segment',[free_p,[free_p.X(),free_p.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+ board3.on('up', function(f){
+   //dist_box = [-3,0.3,Math.round(bin_one[0]),-0.05]
+   board3.removeObject(line_seg_p)
+   breg_val = KLB(free_p.X(),bin_one)
+   distribution_free = stats.binomialDistribution(bin_one[0],free_p.X());
+   board4.removeObject(chart_free)
+   //board4.removeObject(free)
+   board4.update()
+   board3.update()
+   chart_free = board4.create('chart', distribution_free, {
+            chartStyle:'bar',
+            color:'#013081',
+            width:0.1,
+            labels:f,
+            shadow:true
+   });
+   line_seg_p = board3.create('segment',[free_p,[free_p.X(),free_p.Y()-breg_val]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
+   line_seg_p.setLabel('D(p||q)= '+Math.round(breg_val*100)/100)
+ });
+target_p.on('up', function(f){
+  bin_one[1] = target_p.Value()
+  board3.removeObject(divergence_p)
+  //board3.removeObject(target)
+  board3.update()
+  divergence_p = board3.create('functiongraph', [function(x){ return KLB(x,bin_one); },0, 1],{strokeColor:'#000',strokeWidth:2, highlight: false});
+  free_p = board3.create('glider',[divergence_p],{name:'free', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
+  var distribution = stats.binomialDistribution(...bin_one);
+  board4.removeObject(chart)
+  board4.update()
+  chart = board4.create('chart', distribution, {
+           chartStyle:'bar',
+           color:'#FF9900',
+           width:0.1,
+           labels:f,
+           shadow:true
+  });
+  board3.update()
+
+});
+
+dist_box = [-3,0.3,bin_one[0]+2,-0.05]
+var board4 = JXG.JSXGraph.initBoard('box4', {boundingbox: dist_box , axis:true, showNavigation:false});
+var data = [
+	{ ID: 1, age: 33 },
+	{ ID: 2, age: 42 },
+	{ ID: 3, age: 27 },
+];
+
+var columns = {
+	ID: 'ordinal',
+	age: 'interval'
+};
+
+var settings = {};
+var stats = new Statistics(data, columns, settings);
+var distribution = stats.binomialDistribution(...bin_one);
+var distribution_free = stats.binomialDistribution(bin_one[0],free.X());
+var chart = board4.create('chart', distribution, {
+         chartStyle:'bar',
+         color:'#FF9900',
+         width:0.1,
+         labels:f,
+         shadow:true
+});
+var chart_free = board4.create('chart', distribution_free, {
+         chartStyle:'bar',
+         color:'#013081',
+         width:0.1,
+         labels:f,
+         shadow:true
+});
+</script>
+</section>
