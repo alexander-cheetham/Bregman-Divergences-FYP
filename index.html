@@ -22,14 +22,14 @@
     <link rel="stylesheet" href="alex-assets/bundle.css" />
     <link rel="stylesheet" href='success.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.js"></script>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    < <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+-->
     <!--<script defer src="alex-assets/bundle.js"></script> this does loads -->
 
     <!-- meta tags -->
@@ -59,7 +59,7 @@
   </head>
 
 <body>
-  <section id="intro" style=' width: 60%; margin: auto;text-align: center' >
+  <section id="intro" style=' width: 70%; margin: auto;text-align: center' >
       <h1 id="intro-hed">Bregman Divergences</h1>
       <h2 id="intro-sub" style='font-family: "Amazon Ember Mono"'>A Visual Introduction to Bregman Divergences</h2>
       <h3 id="intro__date"  style='font-family: "Amazon Ember Mono"'><a >Alexander Cheetham</a>, September 2022</h3>
@@ -68,11 +68,11 @@
 <br>
 <section class='panel'>
 <h2 class="body-header">Introduction</h2>
-<p class="body-text">
+<p style='width:70%;margin:auto;'>
 Bregman divergences are a widely used mathematical concept in machine learning that are often discussed
  in theoretical papers, but can be challenging to understand for those encountering them for the first time.
   These divergences are significant because of their usefulness in many areas of machine learning such as
-  clustering and matrix approximations \(\textbf{cite}\).
+  clustering and matrix approximations.
    However, the formalism-heavy Wikipedia page on Bregman divergences may not be the most accessible
     resource for beginners. In this regard, this page aims to provide a comprehensive and easy-to-understand
      introduction to Bregman divergences. It will cover their definition, derivation, and useful properties,
@@ -113,12 +113,12 @@ The motivation for studying Bregman divergences comes from the idea of trying to
 generalise the definition of squared Euclidean distance to a larger class of
 distances that share the same properties. Alongside this, as we will see later
 Bregman divergences have strong ties to applications in probability, machine
-learning and clustering. \(\textcolor{red}{CITE\, mirrodescient motivation}\)
+learning and clustering.
 <br>
 <br>
 With this motivation in mind we will first generalise the
 squared Euclidean distance(SED) between two points to a Bregman Divergence. Given two
-points \( x,y \in \, \mathbb{R}^n \) the SED is: \(\textcolor{red}{CITE\, webarchive}\)
+points \( x,y \in \, \mathbb{R}^n \) the SED is:
 $$d^2(x,y):=\sum_{i=1}^{n} (x_i - y_i)^2 $$
 We can rewrite the definition of the
 SED in terms of the inner product (\( \langle x,y \rangle = \sum_{i=1}^{d} x_iy_i  \) ).
@@ -157,7 +157,7 @@ realise that \( f(y) + \langle\nabla f(y),x-y\rangle \) is the tangent line of f
 at y.
 <br>
 <br>
-<div id="box" class="jxgbox" style="width:45%; height:70vh; margin: auto;"></div>
+<div id="box" class="jxgbox" style="width:50%; height:60vh; margin: auto;"></div>
 <script type="text/javascript">
 
 
@@ -220,7 +220,7 @@ theSlider.on('down', function(h){
 <p class='body-text'>
   Handily, if we state explicitly that our distance measure must be non-negative
   we can redefine our distance measure as
-  $$d^2(x,y) := f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) \geq 0$$
+  $$D_{\mathbb{f}}(x||y):=d^2(x,y) = f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) \geq 0$$
   This tells us that function must lie above the tangent line for all \(x,y\)
   and gives the following inequality.
   $$f(x) \geq f(y) + \langle\nabla f(y),x-y\rangle $$
@@ -248,18 +248,20 @@ The complete definition of a bregman divergence is presented below
 <nav style='width:80%;margin:auto;'>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a  style='color: #000'class="nav-item nav-link body-text" id="nav-convex-tab" data-toggle="tab"
-    href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Convex Set</a>
-    <a style='color: #000' class="nav-item nav-link active body-text" id="nav-contdiff-tab" data-toggle="tab"
+    href="#nav-profile" role="tab" aria-controls="nav-contact" aria-selected="false">Convex Set</a>
+    <a style='color: #000' class="nav-item nav-link  body-text" id="nav-contdiff-tab" data-toggle="tab"
     href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">
   Continuously Differentiable</a>
-    <a style='color: #000' class="nav-item nav-link body-text" id="nav-strcon-tab" data-toggle="tab"
-    href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Strictly Convex</a>
+    <a style='color: #000' class="nav-item active nav-link body-text" id="nav-strcon-tab" data-toggle="tab"
+    href="#nav-contact" role="tab" aria-controls="nav-profile" aria-selected="false">Strictly Convex</a>
 
   </div>
 </nav>
 <div class="tab-content card body-text" id="nav-tabContent" style='width:100%;margin:auto;'>
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-contdiff-tab">
-    The derivative must also be continuous.</div>
+  <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-contdiff-tab">
+    A function \(\mathbb{f}\) is said to be continuously differentiable if its derivative
+ exists and is itself a continuous function.
+</div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-strcon-tab">
     A function such that any straight
     line between any pair of points
@@ -267,7 +269,7 @@ The complete definition of a bregman divergence is presented below
     curve.
   </div>
 
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-convex-tab">
+  <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-convex-tab">
     The definition of strict convexity is a function such that any straight
     line between any pair of points
     on the curve is above the curve including the intersection of the line and the
@@ -279,20 +281,191 @@ The complete definition of a bregman divergence is presented below
 
 <br>
 </section>
+<div style='width:70%;margin:auto;'>
+<h2 class="body-header">Properties of Bregman Divergences: </h2>
+<p class='body-text'>
+Below we will explore some of the key mathematical properties of Bregman divergences
+making them a useful generalisation of many existing loss/distance functions.
+We note the definition of a Bregman Divergence, from before, as: Let \( \mathbb{f}:
+\mathcal{S} \rightarrow \mathbb{R} \) be a strictly convex, differentiable function
+defined on a convex set \( \mathcal{S} = dom(f) \subseteq \mathbb{R}^d \) and let
+\( d_{f}: \mathcal{S} \; \times \; ri(\mathcal{s}) \rightarrow [0, \infty ] \) be
+its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
+ \nabla f(y), x-y \rangle \).
+\[\]
+</p>
+<br>
+
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link body-header" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="tfa" aria-controls="collapseOne">
+          Non-Negativity
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        The non-negativity property; defined as \[d_{f}(x||y) \geq 0, \forall x \in
+        \mathcal{s}, \forall y \in ri(\mathcal{s}). \]  is useful because
+        it ensures that the distance between any two points is always greater zero or
+        equal to zero when the values are the same. It is useful because it transforms
+        the bregman divergence into a 'distance-like' measure rather than just a dissimilarity measure.
+        In particular it can be used to create regularisation terms that penalise 'distance'
+        of a solution from a reference point/distribution or enforce structure on your solution. It also allows Bregman Divergences
+        to provide a notion of convergence for a sequence of points \( x_k \).
+        The sequence of divergences \( d_f(x_k,x) \rightarrow 0 \) implying x
+         that x is a minimizer of the objective function associated with \( \mathbb{f} \).
+         See "Mirror descent and nonlinear projected subgradient methods for convex optimization" by Beck, A. and Teboulle, M., 2003. ,
+         for proving convergence of a gradient descent based algorithm.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed body-header" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Linearity
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        Bregman Divergences are linear operators, i.e \( \forall x \in  \mathbb{s},
+        \forall y \in ri(\mathcal{s}) \; \&  \;\alpha \in \mathbb{R} \)
+        \[
+        d_{f_{1}+f_{2}}(x||y)=d_{f_{1}}(x||y)+d_{f_{2}}(x||y), \newline
+        d_{\alpha f}(x||y) = \alpha d_{f}(x||y).
+        \]
+        This is a useful property because it allows optimisation problems that involve
+        linear constraints or linear objective functions to be solved using optimization
+        frameworks that leverage the convexity and linearity of Bregman divergences
+        for its convergence and efficiency.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed body-header" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Equivalence Classes
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        Bregman Divergences have the desirable property that generator functions differing
+        only in affine terms (\( f(x) = \mathrm{A}x + b \)) i.e, \(f(x)=f_{0}(x)+\langle
+        b,x \rangle + c, \; b \in \mathbb{R}^d \; \& \; c \in \mathbb{R} \) and then
+        \[d_f(x||y) = d_{f_{0}}(x||y), \; \forall x \in  \mathbb{s},
+        \forall y \in ri(\mathcal{s})
+        \] then the set of all bregman divergences can be broken down  into Equivalence
+        classes of the form:
+        \[
+        [f_0] = \{f \,| \, d_{f}(x||y)=d_{f_0}(x||y), \;  \forall x \in  \mathbb{s},
+        \forall y \in ri(\mathcal{s}\}.
+        \]
+        This is a useful property because by partitioning the set of strictly convex,
+        differentiable functions into equivalence classes based on their bregman divergences
+        we can simplify many optimisation problems by only considering one divergence from each class.
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed body-header" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Linear Separation
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        Bregman Divergences can guarantee the existence of linear separators, because
+        the the locus of points equidistant from two fixed points under a bregman
+        divergence is a hyperplane i.e,
+        \[
+        d_f(x||\mu_1)=d_f(x||\mu_2)
+        \]
+        The linear separation property is useful because it enables the use of efficient
+         optimization algorithms, such as support vector machines (SVMs), which rely
+          on the existence of linear separators. SVMs are a popular machine learning
+          technique that can be used for binary classification tasks, where the goal
+           is to separate two classes of data points using a hyperplane.
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed body-header" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Relation to KL Divergence
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        Bregman Divergences can guarantee the existence of linear separators, because
+        the the locus of points equidistant from two fixed points under a bregman
+        divergence is a hyperplane i.e,
+        \[
+        d_f(x||\mu_1)=d_f(x||\mu_2)
+        \]
+        The linear separation property is useful because it enables the use of efficient
+         optimization algorithms, such as support vector machines (SVMs), which rely
+          on the existence of linear separators. SVMs are a popular machine learning
+          technique that can be used for binary classification tasks, where the goal
+           is to separate two classes of data points using a hyperplane.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingSix">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed body-header" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Generalised Pythagorean Theorem
+        </button>
+      </h2>
+    </div>
+    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+      <div class="card-body body-text">
+        Bregman Divergences can guarantee the existence of linear separators, because
+        the the locus of points equidistant from two fixed points under a bregman
+        divergence is a hyperplane i.e,
+        \[
+        d_f(x||\mu_1)=d_f(x||\mu_2)
+        \]
+        The linear separation property is useful because it enables the use of efficient
+         optimization algorithms, such as support vector machines (SVMs), which rely
+          on the existence of linear separators. SVMs are a popular machine learning
+          technique that can be used for binary classification tasks, where the goal
+           is to separate two classes of data points using a hyperplane.
+      </div>
+    </div>
+  </div> -->
+</div>
+<section>
+</section>
+</div>
 <section class='panel'>
 <h2 class="body-header">General Bregman Divergence Plots: </h2>
 <br>
-
 <div style='width:80%;margin:auto;text-align: center'>
   <p>
     Below is a widget that will test the convexity of a function and if the function
     is of form \(f: \mathbb{R} \rightarrow \mathbb{R}\) the accompanying bregman plots will be displayed.
+    For some examples of generator functions and accompanying domains <a href="#divergence-table" class="badge badge-light">click here</a>.
   </p>
+
 <input class="btn btn-primary" onclick="reset_panels()" type="reset" value="↺ Reset">
 </div>
 <br>
 <br>
-<div id='inputeq' class='body-text' style='width:45%;margin:auto;text-align: center'>
+<div id='inputeq' class='body-text' style='width:70%;margin:auto;text-align: center'>
     <p> Please enter your continuous function of class \(f:\mathbb{R}^n \rightarrow \mathbb{R}\)</p>
     <label for="lossfunc">Generator function</label>
     <input type="text" id="lossfunc">
@@ -310,7 +483,7 @@ display:none;'>
 <div style='text-align:center' id='buttoncontainer'></div>
 <button class="btn btn-primary" id="generate2" onclick="generate2()">Submit</button>
 </div>
-<div style='width:45%;margin:auto;text-align: center;display:none;'  id=panel3>
+<div style='width:70%;margin:auto;text-align: center;display:none;'  id=panel3>
   <div style='text-align:center;margin:auto;' id='convexity_test'></div>
 
   </div>
@@ -331,7 +504,6 @@ display:none;'>
     </div>
 
     </div>
-
 
 <script>
     var inputeq = document.getElementById('inputeq');
@@ -364,7 +536,7 @@ display:none;'>
                innerdiv = document.createElement('div')
                innerdiv.setAttribute('class','input-group-prepend')
                text = document.createElement('span')
-               text.innerHTML = 'Stepsize & Lower/Upper bounds for: '+variable+' ';
+               text.innerHTML = 'Please enter Lower, Upper bounds for: '+variable+' ';
                text.setAttribute('class','input-group-text')
                innerdiv.appendChild(text)
                inp1 = document.createElement('input')
@@ -375,14 +547,14 @@ display:none;'>
                inp2.setAttribute('type','number')
                inp2.setAttribute('class','form-control')
                inp2.setAttribute('id',variable+'ubound')
-               inp3 = document.createElement('input')
-               inp3.setAttribute('type','number')
-               inp3.setAttribute('class','form-control')
-               inp3.setAttribute('id','stepsize')
+               //inp3 = document.createElement('input')
+               //inp3.setAttribute('type','number')
+               //inp3.setAttribute('class','form-control')
+               //inp3.setAttribute('id','stepsize')
                outer.appendChild(innerdiv)
                outer.appendChild(inp1)
                outer.appendChild(inp2)
-               outer.appendChild(inp3)
+               //outer.appendChild(inp3)
                bounds.appendChild(outer)
                variables.push(variable)
            });
@@ -403,11 +575,9 @@ display:none;'>
         bounds_copy.push(parseFloat(k.value))
       })
       stepsizes = []
-      var i = Math.floor(bounds.length / 3);
-
-      while (i--) {
-        stepsizes.push(bounds[(i + 1) * 3 - 1])
-        bounds.splice((i + 1) * 3 - 1, 1);
+      var i = Math.floor(bounds.length / 2);
+      for (let j=0;j<=(i-1);j++){
+        stepsizes.push((bounds[2*j+1] -  bounds[2*j]) / (100 - 1))
       }
       if(isConvex(inputted_equation,bounds,variables)==true){
         writing = document.createElement('div')
@@ -435,7 +605,7 @@ display:none;'>
           plot_data = {
             generator: nerdamer(input.value).sub(original_variable,"x"),
             bregdiv: bregdiv,
-            bounds: bounds_copy
+            bounds: [bounds[0],bounds[1],stepsizes[0]]
           }
           button.onclick = plot_user_breg(plot_data)
           button.innerHTML = 'Plot.'
@@ -477,9 +647,15 @@ display:none;'>
   }
 
   function plot_user_breg(data){
+    if(data.bounds[0]==0){
+      data.bounds[0]=data.bounds[0]+data.bounds[2]
+    }
+    if(data.bounds[1]==0){
+      data.bounds[1]=data.bounds[1]+data.bounds[2]
+    }
     nerdamer.clearVars()
     panel3.style.display = 'none';
-    generator_string = "\\bold{\\phi(x)}=".concat(data.generator.toTeX())
+    generator_string = "\\mathbb{f(x)}=".concat(data.generator.toTeX())
     katex.render(generator_string,document.getElementById('generatorlatex'))
     generator_f = data.generator.buildFunction()
     top_left= Math.max(generator_f(data.bounds[0]),generator_f(data.bounds[1]))
@@ -488,7 +664,7 @@ display:none;'>
     y_diff = Math.abs(top_left - bottom_right)
     var generatorboard = JXG.JSXGraph.initBoard('generatorbox', {boundingbox:[bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff+0.5,bounds[1]+0.3*bounds_diff,bottom_right-(0.3*y_diff+0.5)], axis:true, showNavigation:false});
     generatorboard.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
-    generator = generatorboard.create('functiongraph', [function(x){ return generator_f(x); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    generator = generatorboard.create('functiongraph', [function(x){ return generator_f(x); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
     //fix_generator = generatorboard.create('slider',[[bounds[0]+Math.abs(0.3*bounds[0]+5),top_left-0.3*top_left],[bounds[1]-Math.abs(0.3*bounds[1]+5),top_left-0.3*top_left],[0,0.7,1]],{snapWidth:0.05,label:{autoPosition: true, offset:[100, 100]}});
     //fix_generator = generatorboard.create('glider',[generator],{name:'x', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
     fix_generator = generatorboard.create('slider',
@@ -517,7 +693,7 @@ display:none;'>
       divergenceboard.removeObject(divergence);
       divergenceboard.removeObject(divergence_fixed_point);
       divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10]}});
-      divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(generator_val,x); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+      divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(generator_val,x); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
       free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(generator_val,fix_free.Value()),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[10, 10]}});
       free_eval = divergence_f(free_glider.X(),generator_val)
       breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
@@ -534,7 +710,7 @@ display:none;'>
     });
     generatorboard.fullUpdate()
 
-    divergence_string = "d_{\\phi}(x,y)=".concat(nerdamer.simplify(data.bregdiv.sub('p','x').sub('q','y').toString()).toTeX())
+    divergence_string = "d_{\\mathbb{f}}(x,y)=".concat(nerdamer.simplify(data.bregdiv.sub('p','x').sub('q','y').toString()).toTeX())
     katex.render(divergence_string,document.getElementById('divergencelatex'))
     //nerdamer.setVar('p',0.7)
     divergence_f = data.bregdiv.buildFunction()
@@ -555,7 +731,7 @@ display:none;'>
               suffixLabel: 'y = ',
     }
     );
-    divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(x,generator_val); },-10, 10],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(x,generator_val); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
     free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(fix_free.Value(),generator_val),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[-10, 10]}});
     free_glider.setAttribute({ fixed: true });
     divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10],label:{autoPosition: true, offset:[10, 10]}}});
@@ -666,50 +842,70 @@ function reset_panels() {
 <br>
 <br>
 <h2 class="body-header">Common Loss Functions:</h2>
-<section style='width:80%;margin:auto;'>
-  <div class="accordion accordion-flush" id="commonlosslist">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-        Squared Loss
-      </button>
-    </h2>
-    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#commonlosslist">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-        Kullbach Liebler Divergence
-      </button>
-    </h2>
-    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#commonlosslist">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-        Bit Entropy
-      </button>
-    </h2>
-    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#commonlosslist">
-      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingFour">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
-        Burg Entropy
-      </button>
-    </h2>
-    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#commonlosslist">
-      <div class="accordion-body">Placeholder content<code>import numpy</code> for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
-    </div>
-  </div>
+<div class='table-responsive-md' style='width:80%;margin:auto;'>
+  <table class="table table-striped table-borderless" id='divergence-table'>
+  <thead>
+    <tr>
+      <th scope="col">Function Name</th>
+      <th scope="col">Generator \(f(x)\)</th>
+      <th scope="col">Domain</th>
+      <th scope="col">Divergence \(D_{f}(x||y)\)</th>
+      <th scope="col">Divergence Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Squared Norm</th>
+      <td>\(x^2\)</td>
+      <td>\(\mathbb{R}\)</td>
+      <td>\((x-y)^2\)</td>
+      <td>Squared Loss</td>
+    </tr>
+    <tr>
+      <th scope="row">Shannon Entropy</th>
+      <td>\(xlog(x)-x\)</td>
+      <td>\([0,\infty)\)</td>
+      <td>\(xlog(\frac{x}{y})-x+y\)</td>
+      <td>Kullbach-Liebler Divergence</td>
+    </tr>
+    <tr>
+      <th scope="row">Exponential</th>
+      <td>\(e^x\)</td>
+      <td>\(\mathbb{R}\)</td>
+      <td>\(e^x-(x-y+1)*e^y\)</td>
+      <td>Exponential Loss</td>
+    </tr>
+    <tr>
+      <th scope="row">Burg Entropy</th>
+      <td>\(-log(x)\)</td>
+      <td>\((0,\infty)\)</td>
+      <td>\(\frac{x}{y}-log(\frac{x}{y})-1\)</td>
+      <td>Itakura-Saito Distance</td>
+    </tr>
+    <tr>
+      <th scope="row">Bit Entropy</th>
+      <td>\(x*log(x)-(1-x)*log(1-x)\)</td>
+      <td>\([0,1]\)</td>
+      <td>\(xlog(\frac{x}{y})-(1-x)log(\frac{1-x}{1-y})\)</td>
+      <td>Logistic Loss</td>
+    </tr>
+    <tr>
+      <th scope="row">Dual Bit Entropy</th>
+      <td>\(log(1+e^x)\)</td>
+      <td>\(\mathbb{R}\)</td>
+      <td>\(xlog(x)-(1-x)log(1-x)\)</td>
+      <td>Dual Logistic Loss</td>
+    </tr>
+    <tr>
+      <th scope="row">Hellinger</th>
+      <td>\(-\sqrt{1-x^2}\)</td>
+      <td>\([-1,1]\)</td>
+      <td>\((1-xy)(1-y^2)^{-1/2}-(1-x^2)^{1/2}\)</td>
+      <td>Hellinger</td>
+    </tr>
+  </tbody>
+</table>
 </div>
-  </section
 <section>
   <br>
   <br>
@@ -726,7 +922,7 @@ function reset_panels() {
 </ol>
 
   </p>
-<div style='width:45%;margin:auto; text-align: center'>
+<div style='width:70%;margin:auto; text-align: center'>
   <span  class="bold">Why would you use other dissimilarity measures?</span>
 </div>
 
