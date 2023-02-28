@@ -521,6 +521,30 @@ display:none;'>
         return Array.from({length: num}, (_, i) => start + step * i);
     }
 
+    const jsStruct = (...keys) => ((...v) => keys.reduce((o, k, i) => {o[k] = v[i]; return o} , {}))
+    const Item = jsStruct('generator', 'bregdiv', 'bounds')
+    var CommonDivs = [
+        Item(nerdamer('x*x'), getBregDiv(nerdamer('x*x')),[-4,4,0.081]),
+        Item(nerdamer('x*log(x)-x'), getBregDiv(nerdamer('x*log(x)-x')),[0,10,0.01]),
+        Item(nerdamer('e^x'), getBregDiv(nerdamer('e^x')),[-10,10,0.01]),
+        Item(nerdamer('-log(x)'), getBregDiv(nerdamer('-log(x)')),[0.1,10,0.01]),
+        Item(nerdamer('x*log(x)-(1-x)*log(1-x)'), getBregDiv(nerdamer('x*log(x)-(1-x)*log(1-x)')),[0,1,0.01]),
+        Item(nerdamer('log(1+e^x)'), getBregDiv(nerdamer('log(1+e^x)')),[-10,10,0.01]),
+        Item(nerdamer('-1*(1-x*x)^(1/2)'), getBregDiv(nerdamer('-1*(1-x*x)^(1/2)')),[-1,1,0.01]),
+
+    ];
+    function getBregDiv(nerdamerobj){
+      original_variable = nerdamerobj.variables()[0]
+      p_var = nerdamer(nerdamerobj).sub(original_variable,"p")
+      q_var = nerdamer(nerdamerobj).sub(original_variable,"q")
+      diff_q = nerdamer.diff(q_var,'q')
+      //difference_p_q = p_var.subtract(q_var)
+      innerprod = diff_q.multiply(nerdamer('p').subtract(nerdamer('q')));
+      bregdiv = p_var.subtract(q_var.add(innerprod))
+      return bregdiv
+    }
+
+
     function generate() {
         try {
             inputted_equation = nerdamer(input.value)
@@ -590,7 +614,6 @@ display:none;'>
         convexity_div.appendChild(writing)
         convexity_div.appendChild(lastwriting)
 
-        //console.log(nerdamer(input.value).variables())
         if(nerdamer(input.value).variables().length==1){
           button = document.createElement('button')
           button.classList.add("btn","btn-primary")
@@ -660,16 +683,16 @@ display:none;'>
     generator_f = data.generator.buildFunction()
     top_left= Math.max(generator_f(data.bounds[0]),generator_f(data.bounds[1]))
     bottom_right = minima_over_range(generator_f,data.bounds)
-    bounds_diff = bounds[1]-bounds[0]
+    bounds_diff = data.bounds[1]-data.bounds[0]
     y_diff = Math.abs(top_left - bottom_right)
-    var generatorboard = JXG.JSXGraph.initBoard('generatorbox', {boundingbox:[bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff+0.5,bounds[1]+0.3*bounds_diff,bottom_right-(0.3*y_diff+0.5)], axis:true, showNavigation:false});
+    var generatorboard = JXG.JSXGraph.initBoard('generatorbox', {boundingbox:[data.bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff+0.5,data.bounds[1]+0.3*bounds_diff,bottom_right-(0.3*y_diff+0.5)], axis:true, showNavigation:false});
     generatorboard.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
-    generator = generatorboard.create('functiongraph', [function(x){ return generator_f(x); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    generator = generatorboard.create('functiongraph', [function(x){ return generator_f(x); },data.bounds[0], data.bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
     //fix_generator = generatorboard.create('slider',[[bounds[0]+Math.abs(0.3*bounds[0]+5),top_left-0.3*top_left],[bounds[1]-Math.abs(0.3*bounds[1]+5),top_left-0.3*top_left],[0,0.7,1]],{snapWidth:0.05,label:{autoPosition: true, offset:[100, 100]}});
     //fix_generator = generatorboard.create('glider',[generator],{name:'x', highlight: false,strokeColor:'#013081',fillColor:'#013081'});
     fix_generator = generatorboard.create('slider',
-    [[bounds[0],0.75*(top_left+0.3*y_diff+0.5)],
-    [bounds[1],0.75*(top_left+0.3*y_diff+0.5)],[bounds[0],(bounds[0]+bounds[1])/2,bounds[1]]],
+    [[data.bounds[0],0.75*(top_left+0.3*y_diff+0.5)],
+    [data.bounds[1],0.75*(top_left+0.3*y_diff+0.5)],[data.bounds[0],(data.bounds[0]+data.bounds[1])/2,data.bounds[1]]],
     {
       label: {fontSize: 18, strokeColor: 'black'},
               name: 'xyz',
@@ -693,7 +716,7 @@ display:none;'>
       divergenceboard.removeObject(divergence);
       divergenceboard.removeObject(divergence_fixed_point);
       divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10]}});
-      divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(generator_val,x); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
+      divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(generator_val,x); },data.bounds[0], data.bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
       free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(generator_val,fix_free.Value()),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[10, 10]}});
       free_eval = divergence_f(free_glider.X(),generator_val)
       breg_dist_seg = divergenceboard.create('segment',[free_glider,[free_glider.X(),0]],{strokeColor:'#013081',strokeWidth:3, highlight: false,label:{autoPosition: true, offset:[10, 10]}});
@@ -714,16 +737,15 @@ display:none;'>
     katex.render(divergence_string,document.getElementById('divergencelatex'))
     //nerdamer.setVar('p',0.7)
     divergence_f = data.bregdiv.buildFunction()
-    //console.log(divergence_f,generator_val,divergence_f(5,generator_val))
     top_left= Math.max(divergence_f(data.bounds[0],generator_val),divergence_f(data.bounds[1],generator_val))
     bottom_right = minima_over_range(divergence_f,data.bounds,generator_val)
-    bounds_diff = bounds[1]-bounds[0]
+    bounds_diff = data.bounds[1]-data.bounds[0]
     y_diff = Math.abs(top_left - bottom_right)
-    var divergenceboard = JXG.JSXGraph.initBoard('divergencebox', {boundingbox:[bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff,bounds[1]+0.3*bounds_diff,bottom_right-0.3*y_diff], axis:true, showNavigation:false});
+    var divergenceboard = JXG.JSXGraph.initBoard('divergencebox', {boundingbox:[data.bounds[0]-0.3*bounds_diff,top_left+0.3*y_diff,data.bounds[1]+0.3*bounds_diff,bottom_right-0.3*y_diff], axis:true, showNavigation:false});
     divergenceboard.options.text.cssStyle = 'font-family: "Amazon Ember Mono"'
     fix_free = divergenceboard.create('slider',
-    [[bounds[0],0.75*(top_left+0.3*y_diff)],
-    [bounds[1],0.75*(top_left+0.3*y_diff)],[bounds[0],3*(bounds[0]+bounds[1])/4,bounds[1]]],
+    [[data.bounds[0],0.75*(top_left+0.3*y_diff)],
+    [data.bounds[1],0.75*(top_left+0.3*y_diff)],[data.bounds[0],3*(data.bounds[0]+data.bounds[1])/4,data.bounds[1]]],
     {
       label: {fontSize: 18, strokeColor: 'black'},
               name: 'xyz',
@@ -731,7 +753,7 @@ display:none;'>
               suffixLabel: 'y = ',
     }
     );
-    divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(x,generator_val); },bounds[0], bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
+    divergence = divergenceboard.create('functiongraph', [function(x){ return divergence_f(x,generator_val); },data.bounds[0], data.bounds[1]],{strokeColor:'#000',strokeWidth:2, highlight: false});
     free_glider = divergenceboard.create('glider',[fix_free.Value(),divergence_f(fix_free.Value(),generator_val),divergence],{name:'y', highlight: false,strokeColor:'#013081',fillColor:'#013081',label:{autoPosition: true, offset:[-10, 10]}});
     free_glider.setAttribute({ fixed: true });
     divergence_fixed_point = divergenceboard.create('point', [fix_generator.Value(), 0],{ highlight: false,name:'x',label:{autoPosition: true, offset:[-10, 10],label:{autoPosition: true, offset:[10, 10]}}});
@@ -803,7 +825,6 @@ display:none;'>
 
           hessian = math.matrix(hessian)
           eigenvalues = math.eigs(hessian).values
-          //console.log(eigenvalues)
           for (var k=0;k<eigenvalues._size;k+=1){
             if(eigenvalues._data[k] <0 || math.im(eigenvalues._data[k])!=0){
               return false;
@@ -835,6 +856,15 @@ function reset_panels() {
 
     }
 
+    function predefinedPlot(data) {
+
+          inputeq.style.display = "none";
+          panel2.style.display = "none";
+          panel3.style.display='none';
+          plot_user_breg(data);
+
+        }
+
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
@@ -855,49 +885,49 @@ function reset_panels() {
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Squared Norm</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="predefinedPlot(CommonDivs[0])">Squared Norm</button></th>
       <td>\(x^2\)</td>
       <td>\(\mathbb{R}\)</td>
       <td>\((x-y)^2\)</td>
       <td>Squared Loss</td>
     </tr>
     <tr>
-      <th scope="row">Shannon Entropy</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="predefinedPlot(CommonDivs[1])">Shannon Entropy</button></th>
       <td>\(xlog(x)-x\)</td>
       <td>\([0,\infty)\)</td>
       <td>\(xlog(\frac{x}{y})-x+y\)</td>
       <td>Kullbach-Liebler Divergence</td>
     </tr>
     <tr>
-      <th scope="row">Exponential</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="predefinedPlot(CommonDivs[2])">Exponential</button></th>
       <td>\(e^x\)</td>
       <td>\(\mathbb{R}\)</td>
       <td>\(e^x-(x-y+1)*e^y\)</td>
       <td>Exponential Loss</td>
     </tr>
     <tr>
-      <th scope="row">Burg Entropy</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="predefinedPlot(CommonDivs[3])">Burg Entropy</button></th>
       <td>\(-log(x)\)</td>
       <td>\((0,\infty)\)</td>
       <td>\(\frac{x}{y}-log(\frac{x}{y})-1\)</td>
       <td>Itakura-Saito Distance</td>
     </tr>
     <tr>
-      <th scope="row">Bit Entropy</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="plot_user_breg(CommonDivs[4])">Bit Entropy</button></th>
       <td>\(x*log(x)-(1-x)*log(1-x)\)</td>
       <td>\([0,1]\)</td>
       <td>\(xlog(\frac{x}{y})-(1-x)log(\frac{1-x}{1-y})\)</td>
       <td>Logistic Loss</td>
     </tr>
     <tr>
-      <th scope="row">Dual Bit Entropy</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="plot_user_breg(CommonDivs[5])">Dual Bit Entropy</button></th>
       <td>\(log(1+e^x)\)</td>
       <td>\(\mathbb{R}\)</td>
       <td>\(xlog(x)-(1-x)log(1-x)\)</td>
       <td>Dual Logistic Loss</td>
     </tr>
     <tr>
-      <th scope="row">Hellinger</th>
+      <th scope="row"><button type="button" class="btn btn-link" id="squared" onclick="plot_user_breg(CommonDivs[6])">Hellinger</button></th>
       <td>\(-\sqrt{1-x^2}\)</td>
       <td>\([-1,1]\)</td>
       <td>\((1-xy)(1-y^2)^{-1/2}-(1-x^2)^{1/2}\)</td>
