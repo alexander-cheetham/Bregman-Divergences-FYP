@@ -1,15 +1,13 @@
 "use strict";
 
 //Change these values to choose between random points of fixed points
-var fix_centroid = "no";
-var fix_points = "no"
 
-function kMeans(divname, w, h, numPoints, numClusters, maxIter)
+async function kMeans(divname, w, h, numPoints, numClusters, maxIter,true_distr,assumed_distr,fix_points='0')
 {
-
+  const updated_centroids1 = new Array();
+  const updated_centroids2 = new Array();
     //numPoints = 500;
 
-    //console.log(elt)
 
     // the current iteration
     var iter = 1;
@@ -36,24 +34,23 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
 
     //To set range for random values
     var min1 = 0;  //-2
-    var max1 = 20;   //2
+    var max1 = 100;   //2
     var min2 = 0;  //-3
-    var max2 = 20;   //3
+    var max2 = 100;   //3
 
 
     var xScale = d3.scale.linear()
-        .domain([0, 20])
+        .domain([min1, max1])
         .range([0, width])
         .clamp('true');
         //.nice();
 
     var yScale = d3.scale.linear()
-        .domain([0, 20])
+        .domain([min1, max1])
         .range([height, 0])
         .clamp('true');
         //.nice();
 
-    //console.log(xScale(2))
 
 
     var svg = d3.select(divname).append("svg")
@@ -95,18 +92,29 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
      * Returns a point with the specified type and fill color and with random
      * x,y-coordinates.
      */
-    function getRandomPoint(type, fill,distr,alpha=1)
+    function getRandomPoint(type, fill,alpha=1)
     {
+        let x, y;
+        if(true_distr==0){
+          //x= Math.random() * (max1 - min1) + min1;
+          //y= Math.random() * (max2 - min2) + min2;
+          x= (sampleNormal(alpha[0],alpha[2]))*5+10;
+          y= (sampleNormal(alpha[1],alpha[2]))*5+10;
+          if(x<0){
+            x=-x
+          }
+          if(y<0){
+            y=-y
+          }
+        }
+        if(true_distr==1){
+          x= (poissonSample(alpha[0])+Math.random())* (max1 - min1)/20 + min1;
+          y= (poissonSample(alpha[1])+Math.random())* (max1 - min1)/20 + min1;
+        }
         return {
-            //x: Math.round(Math.random() * width),
-            //y: Math.round(Math.random() * height),
-            //x: Math.round(Math.random() * 2),
-            //y: Math.round(Math.random() * 2),
-            x: (poissonSample(alpha)+Math.random())* (max1 - min1)/20 + min1,
-            y: (poissonSample(alpha)+Math.random())* (max1 - min1)/20 + min1,
-            //x: Math.random() * (max1 - min1) + min1,
-            //y: Math.random() * (max2 - min2) + min2,
-
+            x: x,
+            y:y,
+            params:alpha,
             type: type,
             fill: fill,
         };
@@ -130,9 +138,69 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
     /**
      * Generates a specified number of random points of the specified type.
      */
-    function initializePoints(num, type)
+      function generatePairs() {
+        let pairs = [];
+
+        for (let k = 2; k <= 5; k++) {
+          let n = Math.floor(Math.random() * (13 - 3 * k));
+          let p = [];
+
+          for (let i = 0; i < k; i++) {
+            let x = n + i * 4;
+            let y = n + (i + 1 + Math.floor(Math.random() * (k - 1))) * 4;
+
+            while (y === x || Math.abs(y - x) < 4) {
+              y = n + (i + 1 + Math.floor(Math.random() * (k - 1))) * 4;
+            }
+
+            // Heuristic to make the pairs more orthogonal
+            let r = Math.random();
+            if (r < 0.25) {
+              y = x + 4;
+            } else if (r < 0.5) {
+              y = x - 4;
+            } else if (r < 0.75) {
+              y = x + 1;
+            } else {
+              y = x - 1;
+            }
+
+            while (y < 0 || y > 15 || Math.abs(y - x) < 4) {
+              r = Math.random();
+              if (r < 0.25) {
+                y = x + 4;
+              } else if (r < 0.5) {
+                y = x - 4;
+              } else if (r < 0.75) {
+                y = x + 1;
+              } else {
+                y = x - 1;
+              }
+            }
+
+            p.push([x, y]);
+          }
+
+          pairs.push(p);
+        }
+
+  return pairs;
+}
+function sampleNormal(mu, sigma) {
+  let u1 = 1 - Math.random(); // generate a uniform random number in (0,1]
+  let u2 = 1 - Math.random();
+  let z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2); // apply Box-Muller transform
+  return mu + z0 * sigma;
+}
+
+
+
+
+
+    function initializePoints(num, type,lambda_list)
     {
         var result = [];
+
         for (var i = 0; i < num; i++)
         {
             var color = colors[i];
@@ -140,18 +208,16 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
             {
                 color = "#ccc";
             }
-            if(i%2==0){
-              var point = getRandomPoint(type, color,'poisson');
+            if(true_distr==1){
+              var point = getRandomPoint(type, color,lambda_list[i%lambda_list.length]);
             }
-            else{
-              var point = getRandomPoint(type, color,'poisson',10);
+            if(true_distr==0){
+
+              var point = getRandomPoint(type, color,lambda_list[i%lambda_list.length]);
             }
             point.id = point.type + "-" + i;
             result.push(point);
 
-            //console.log(point.x, point.y,point.type,point.fill)
-            //console.log(point)
-            //console.log(result)
         }
         return result;
     }
@@ -167,9 +233,13 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
         };
         centroids.forEach(function(d, i)
         {
+            if(assumed_distr==0){
+              var distance = getEuclidianDistance(d, point);
+            }
+            if(assumed_distr==1){
+              var distance = getPoissonDist(d,point);
+            }
 
-            //var distance = getEuclidianDistance(d, point);
-            var distance = getPoissonDist(d,point);
             // Only update when the centroid is closer
             if (distance < closest.distance)
             {
@@ -218,17 +288,29 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
      */
     function computeClusterCenter(cluster)
     {
-        //console.log(cluster)
-        return [
-            d3.gmean(cluster, function(d)
-            {
-                return d.x;
-            }),
-            d3.gmean(cluster, function(d)
-            {
-                return d.y;
-            })
-        ];
+        let xmean,ymean;
+        if(assumed_distr==0){
+          xmean=d3.mean(cluster, function(d)
+          {
+              return d.x;
+          })
+          ymean = d3.mean(cluster, function(d)
+          {
+              return d.y;
+          })
+        }
+        if(assumed_distr==1){
+          xmean=d3.gmean(cluster, function(d)
+          {
+              return d.x;
+          })
+          ymean = d3.gmean(cluster, function(d)
+          {
+              return d.y;
+          })
+        }
+
+        return [xmean,ymean];
     }
 
     /**
@@ -236,6 +318,7 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
      */
     function moveCentroids()
     {
+        var u=0;
         centroids.forEach(function(d)
         {
             // Get clusters based on their fill color
@@ -249,10 +332,14 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
             d.x = center[0];
             d.y = center[1];
 
-            //console.log(cluster[0])
-            console.log(d)
-            //console.log(d.x,d.y,d.id)
+            if(assumed_distr==0){
+              updated_centroids1.push(Array((d.x-10)/5,(d.y-10)/5,d.id));
+            } else{
+              updated_centroids2.push(Array(d.x/5,d.y/5,d.id));
+            }
+            u++
         });
+
     }
 
     /**
@@ -262,7 +349,6 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
     {
         var data = points.concat(centroids);
 
-        //console.log(points)
 
         // The data join
         var circle = group.selectAll("circle")
@@ -298,16 +384,13 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
 			//.ease('bounce')
 			.attr("cx", function(d)
 			{
-        //console.log(d.x,xScale(d.x*10000))
 				//return d.x;
 				return xScale(d.x)
-					//return console.log(xScale(d.x), d.x), xScale(d.x)
 			})
 			.attr("cy", function(d)
 			{
 				//return d.y;
 				return yScale(d.y)
-					//return console.log(yScale(d.y)), yScale(d.y)
 			})
 			// .style("fill", function(d)
 			// {
@@ -325,10 +408,10 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
 				}
 			});
 
-        //console.log(data)
 
         // Remove old nodes
         circle.exit().remove();
+        return data;
     }
 
 
@@ -375,177 +458,31 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
         // Initialize random points and centroids
         //centroids = initializePoints(numClusters, "centroid");
         //points = initializePoints(numPoints, "point");
-
-
-        if (fix_centroid == "yes")
+        let lambda_list;
+        lambda_list = generatePairs()[numClusters-2]
+        for (var j=0;j<lambda_list.length;j++){
+          lambda_list[j].push(Math.round(4*Math.random())+1)
+        }
+        if (fix_points!= "0")
         {
-            centroids = [
-            {
-                fill: "#1f77b4", //blue
-                id: "centroid-0",
-                type: "centroid",
-                x: 2,   //2   3.8 crash
-                y: 1
-            },
-            {
-                fill: "#ff7f0e", //orange
-                id: "centroid-1",
-                type: "centroid",
-                x: -3,
-                y: 2
-            },
-            {
-                fill: "#2ca02c", //green
-                id: "centroid-2",
-                type: "centroid",
-                x: -0.5,
-                y: -3.5
-            },
-            {
-                fill: "#d62728", //red
-                id: "centroid-3",
-                type: "centroid",
-                x: 0,
-                y: -1
-            }]
+            centroids = fix_points.c
         }
         else
         {
-            centroids = initializePoints(numClusters, "centroid");
+
+            centroids = initializePoints(numClusters, "centroid",lambda_list);
         }
 
 
-        if (fix_points == "yes")
+        if (fix_points != "0")
         {
-            points = [
-                {
-                    fill: "#ccc",
-                    id: "point-0",
-                    type: "point",
-                    x: 0.204,
-                    y: 2.939
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-1",
-                    type: "point",
-                    x: -1.6989,
-                    y: 0
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-2",
-                    type: "point",
-                    x: -2.1549,
-                    y: -3
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-3",
-                    type: "point",
-                    x: 1,
-                    y: -2.301
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-4",
-                    type: "point",
-                    x: -1,
-                    y: 2
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-5",
-                    type: "point",
-                    x: 0,
-                    y: 2.929
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-6",
-                    type: "point",
-                    x: 0.301,
-                    y: 2.903
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-7",
-                    type: "point",
-                    x: -1,
-                    y: 0.4771
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-8",
-                    type: "point",
-                    x: -0.3979,
-                    y: 2.929
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-9",
-                    type: "point",
-                    x: -2.096,
-                    y: 0
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-10",
-                    type: "point",
-                    x: -1.0457,
-                    y: 1
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-11",
-                    type: "point",
-                    x: -3,
-                    y: -2.1549
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-12",
-                    type: "point",
-                    x: -3,
-                    y: -1.5228
-                },
-
-                {
-                    fill: "#ccc",
-                    id: "point-13",
-                    type: "point",
-                    x: -1,
-                    y: 0
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-14",
-                    type: "point",
-                    x: 1,
-                    y: -3
-                },
-                {
-                    fill: "#ccc",
-                    id: "point-15",
-                    type: "point",
-                    x: 1.602,
-                    y: -2.301
-                }
-            ]
+            points = fix_points.p
         }
         else
         {
-            points = initializePoints(numPoints, "point");
-            //console.log(points)
+            points = initializePoints(numPoints, "point",lambda_list);
         }
 
-
-
-        //centroids[0]
-
-        //console.log(centroids[0],centroids[1])
-        //console.log(centroids)
-        //console.log(points)
 
         // initial drawing
         update();
@@ -553,9 +490,11 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
         var interval = setInterval(function()
         {
             if (iter < maxIter + 1)
+            //if (iter < 3)
             {
                 iterate();
                 iter++;
+
             }
             else
             {
@@ -563,8 +502,26 @@ function kMeans(divname, w, h, numPoints, numClusters, maxIter)
                 setText("Done");
             }
         }, 7.5 * 50); //time to start iterations
+        return lambda_list
     }
 
     // Call the main function
-    initialize();
+
+
+    if (fix_points=='0'){
+      let lambda_list;
+      lambda_list = initialize();
+      return{p:points,c:centroids,params:lambda_list}
+    }
+    else{
+      initialize()
+
+      if(assumed_distr==0){
+        return {p:points,c:updated_centroids1}
+      } else{
+        return {p:points,c:updated_centroids2}
+      }
+
+    }
+
 }
