@@ -92,7 +92,7 @@
 <br>
 <section class='panel'>
 <h2 class="body-header">Introduction</h2>
-<p style='width:70%;margin:auto;'>
+<p style='width:70%;margin:auto;text-align:center;'>
 Bregman divergences are a widely used mathematical concept in machine learning that are more commonly discussed
  in academic papers, but can be challenging to understand for those encountering them for the first time.
   These divergences are significant because of their usefulness in many areas of machine learning such as
@@ -106,33 +106,38 @@ Bregman divergences are a widely used mathematical concept in machine learning t
 <div id='bibl'>
 </div>
 </section>
-<section class='panel'>
+<section style='width:70%;margin:auto;text-align:center;max-width:1400px' class='body-text'>
 <h2 class="body-header">History</h2>
-<p class="body-text">
 The Bregman divergence first appeared in a paper on solutions to convex
 programming problems.
 <br>
+<div class='body-text'>
 <img src="./alex-assets/images/paper-title.png" alt="Bregman Paper">
+</div>
 <br>
 Appearing first in the section below.
 <br>
 <br>
+<div class='body-text'>
 <img src="./alex-assets/images/Definition.png" alt="Bregman Paper">
+</div>
 <br>
 The definition of a Bregman divergence (retrospectively named such) was defined
 in equation (1.4) as a result of trying a function that satisfied the
 conditions below.
 <br>
 <br>
+<div class='body-text'>
 <img src="./alex-assets/images/Conditions1.png" alt="Bregman Paper">
 <img src="./alex-assets/images/Conditions2.png" alt="Bregman Paper">
+</div>
 <br>
 We will go deeper into some of these properties later in the article.
-</p>
+</div>
 </section>
-<section class='panel'>
+<section style='max-width:1200px;text-align:center;' class='panel body-text'>
 <h2 class="body-header">Motivation and Derivation</h2>
-<p class='body-text'>
+<p>
 The motivation for studying Bregman divergences comes from the idea of trying to
 generalise the definition of squared Euclidean distance to a larger class of
 distances that share the same properties. Alongside this, as we will see later
@@ -157,7 +162,7 @@ $$d^2(x,y) =  \langle x-y,x-y \rangle = \mid\mid x \mid\mid^2 -
   </p>
   <div class="collapse" id="proof1">
   <div class="card card-body body-text">
-    <p style='overflow-x: scroll' class='body-text'>
+    <p style='overflow-x: scroll'>
       $$\langle x-y,x-y \rangle=||x||^2 + ||y||^2 + ||2yx||$$
       $$||x||^2 + ||y||^2 + ||2yx|| = ||x||^2 - ||y||^2 + ||2y^2||+ ||2yx||$$
       $$||x||^2 - ||y||^2 + ||2y^2||+ ||2yx||=||x||^2- ||y||^2 - (||2y^2||- ||2yx||)$$
@@ -166,15 +171,17 @@ $$d^2(x,y) =  \langle x-y,x-y \rangle = \mid\mid x \mid\mid^2 -
   </p>
   </div>
 </div>
-<p class="body-text">
+<p >
 And after noticing that \( \frac{d}{dy}||y^2|| = 2y \) we can now rewrite the
 equation in terms of the derivative of a function namely \( f(x)=x^2\)
 $$d^2(x,y) = f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) $$
 <br>
-After comparing to bregman's paper below we see that the definitions do indeed
-match and therefore SED is a bregman divergence!
+After comparing to Bregman's paper below we see that the definitions do indeed
+match and therefore SED is a Bregman divergence!
 <br>
+<div class='body-text'>
 <img src="./alex-assets/images/Definition.png" alt="Bregman Paper">
+</div>
 <br>
 This also lends itself to a particularly nice geometrical interpretation if we
 realise that \( f(y) + \langle\nabla f(y),x-y\rangle \) is the tangent line of f
@@ -241,7 +248,7 @@ theSlider.on('down', function(h){
 <br>
 <br>
 </p>
-<p style='overflow-x: scroll' class='body-text'>
+<p style='overflow-x: scroll'>
   Handily, if we state explicitly that our distance measure must be non-negative
   we can redefine our distance measure as
   $$D_{\mathbb{f}}(x||y):=d^2(x,y) = f(x) - (f(y) + \langle\nabla f(y),x-y\rangle) \geq 0$$
@@ -249,11 +256,11 @@ theSlider.on('down', function(h){
   and gives the following inequality.
   $$f(x) \geq f(y) + \langle\nabla f(y),x-y\rangle $$
   Which is precisely the definition, assuming the function is appropriately
-  differentiable, the definition of a convex function.
+  differentiable, of a convex function.
   <br>
   <br>
 <span class="bold">Exploration of the formal definition</span>
-The complete definition of a bregman divergence is presented below
+The complete definition of a Bregman divergence is presented below
 <br>
   <span style='font-size: 30px; color: var(--smile);'>·</span>let F : \( \Omega
   \rightarrow \mathbb{R} \) is <color style='color: var(--smile);weight: Bold;'>continuously differentiable</color> &
@@ -269,7 +276,7 @@ The complete definition of a bregman divergence is presented below
 <br>
 </p>
 <p >
-<nav style='width:80%;margin:auto;'>
+<div style='width:80%;margin:auto;'>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a  style='color: #000'class="nav-item nav-link body-text" id="nav-convex-tab" data-toggle="tab"
     href="#nav-profile" role="tab" aria-controls="nav-contact" aria-selected="false">Convex Set</a>
@@ -280,7 +287,7 @@ The complete definition of a bregman divergence is presented below
     href="#nav-contact" role="tab" aria-controls="nav-profile" aria-selected="false">Strictly Convex</a>
 
   </div>
-</nav>
+</div>
 <div class="tab-content card body-text" id="nav-tabContent" style='width:100%;margin:auto;'>
   <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-contdiff-tab">
     A function \(\mathbb{f}\) is said to be continuously differentiable if its derivative
@@ -307,14 +314,14 @@ The complete definition of a bregman divergence is presented below
 </section>
 <div style='width:70%;margin:auto;'>
 <h2 class="body-header">Properties of Bregman Divergences: </h2>
-<p class='body-text'>
+<p class=''>
 Below we will explore some of the key mathematical properties of Bregman divergences
 making them a useful generalisation of many existing loss/distance functions.
 We note the definition of a Bregman Divergence, from before, as: Let \( \mathbb{f}:
 \mathcal{S} \rightarrow \mathbb{R} \) be a strictly convex, differentiable function
 defined on a convex set \( \mathcal{S} = dom(f) \subseteq \mathbb{R}^d \) and let
 \( d_{f}: \mathcal{S} \; \times \; ri(\mathcal{s}) \rightarrow [0, \infty ] \) be
-its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
+its corresponding Bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
  \nabla f(y), x-y \rangle \).
 \[\]
 </p>
@@ -336,7 +343,7 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
         \mathcal{s}, \forall y \in ri(\mathcal{s}). \]  is useful because
         it ensures that the distance between any two points is always greater zero or
         equal to zero when the values are the same. It is useful because it transforms
-        the bregman divergence into a 'distance-like' measure rather than just a dissimilarity measure.
+        the Bregman divergence into a 'distance-like' measure rather than just a dissimilarity measure.
         In particular it can be used to create regularisation terms that penalise 'distance'
         of a solution from a reference point/distribution or enforce structure on your solution. It also allows Bregman Divergences
         to provide a notion of convergence for a sequence of points \( x_k \).
@@ -385,14 +392,14 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
         b,x \rangle + c, \; b \in \mathbb{R}^d \; \& \; c \in \mathbb{R} \) and then
         \[d_f(x||y) = d_{f_{0}}(x||y), \; \forall x \in  \mathbb{s},
         \forall y \in ri(\mathcal{s})
-        \] then the set of all bregman divergences can be broken down  into Equivalence
+        \] then the set of all Bregman divergences can be broken down  into Equivalence
         classes of the form:
         \[
         [f_0] = \{f \,| \, d_{f}(x||y)=d_{f_0}(x||y), \;  \forall x \in  \mathbb{s},
         \forall y \in ri(\mathcal{s}\}.
         \]
         This is a useful property because by partitioning the set of strictly convex,
-        differentiable functions into equivalence classes based on their bregman divergences
+        differentiable functions into equivalence classes based on their Bregman divergences
         we can simplify many optimisation problems by only considering one divergence from each class.
 
       </div>
@@ -409,7 +416,7 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
       <div class="card-body body-text">
         Bregman Divergences can guarantee the existence of linear separators, because
-        the the locus of points equidistant from two fixed points under a bregman
+        the the locus of points equidistant from two fixed points under a Bregman
         divergence is a hyperplane i.e,
         \[
         d_f(x||\mu_1)=d_f(x||\mu_2)
@@ -434,7 +441,7 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
       <div class="card-body body-text">
         Bregman Divergences can guarantee the existence of linear separators, because
-        the the locus of points equidistant from two fixed points under a bregman
+        the the locus of points equidistant from two fixed points under a Bregman
         divergence is a hyperplane i.e,
         \[
         d_f(x||\mu_1)=d_f(x||\mu_2)
@@ -458,7 +465,7 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
     <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
       <div class="card-body body-text">
         Bregman Divergences can guarantee the existence of linear separators, because
-        the the locus of points equidistant from two fixed points under a bregman
+        the the locus of points equidistant from two fixed points under a Bregman
         divergence is a hyperplane i.e,
         \[
         d_f(x||\mu_1)=d_f(x||\mu_2)
@@ -481,7 +488,7 @@ its corresponding bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
 <div style='width:80%;margin:auto;text-align: center'>
   <p>
     Below is a widget that will test the convexity of a function and if the function
-    is of form \(f: \mathbb{R} \rightarrow \mathbb{R}\) the accompanying bregman plots will be displayed.
+    is of form \(f: \mathbb{R} \rightarrow \mathbb{R}\) the accompanying Bregman plots will be displayed.
     For some examples of generator functions and accompanying domains <a href="#divergence-table" class="badge badge-light">click here</a>.
   </p>
 
@@ -898,7 +905,7 @@ function reset_panels() {
 <h2 class="body-header">Common Loss Functions:</h2>
 <div style='width:80%;margin:auto;'>
 <p class='body-text' style='width:100%'>
-  Below are some commonly found bregman divergences, to see them plotted click
+  Below are some commonly found Bregman divergences, to see them plotted click
   on the function name of generator you want to inspect.
 </p>
 </div>
@@ -966,14 +973,14 @@ function reset_panels() {
   </tbody>
 </table>
 </div>
-<section>
+<section style='margin:auto;text-align:center;width:70%;' class='panel'>
   <br>
   <br>
   <h2  class="body-header">Applications of Bregman Divergences:</h2>
-  <p style='padding-bottom:1%' class='body-text'>
+  <p style='padding-bottom:1%' >
     Bregman divergences are used to measure the dissimilarity between two probability distributions as such some examples of applications of Bregman divergences include:
 <br>
-<ol type='1' class='body-text'>
+<ol type='1' class='panel body-text' style='text-align:left;max-width:800px'>
   <li style='padding-bottom:1%'>\( \textbf{Clustering}\): Bregman divergences can be used to define the dissimilarity between different clusters, which can then be used in algorithms such as k-means clustering.</li>
   <li style='padding-bottom:1%'>\( \textbf{Image compression}\): Bregman divergences can be used to measure the dissimilarity between an original image and a compressed version of the image, which can be used to optimize the compression algorithm.</li>
   <li style='padding-bottom:1%'>\( \textbf{Machine learning}\): Bregman divergences can be used as loss functions in machine learning algorithms, such as in the optimization of neural networks.</li>
@@ -985,10 +992,10 @@ function reset_panels() {
   <section class='panel'>
   <h2 class="body-header">Exploring Bregman Enhanced Clustering: </h2>
   <br>
-  <p class='body-text'>
+  <p >
     When knowledge about the underlying problem setting or distribution of data is known in advance.
     Clustering algorithms can be made shown to perform more accurately when
-    utilising bregman divergences to create dissimilarity measures that model
+    utilising Bregman divergences to create dissimilarity measures that model
     underlying data more accurately.<br><br>Below we will explore how K-means
     clustering can perform better on data sampled from non-normal distributions
     with adapted distance/centroid functions. A Brief Refesher on the K-means
@@ -1065,7 +1072,7 @@ function reset_panels() {
   </div>
   <br>
   <br>
-  <p class='body-text'>
+  <p >
     Some specific examples of Centroid Combiner/dissimilarity Measure
     combinations and their respective dual exponential family probability
     distribution are shown below. The centroid combiner and associated dissimilarity
@@ -1113,6 +1120,17 @@ function reset_panels() {
   </div>
   <br>
   <br>
+</section>
+<section style='width:100%;margin:auto;'>
+  <h1   > Clustering Example Sandbox: </h1>
+  <br>
+  <p>
+    In the following example we will compare the performance of the K-means algorithm
+    for different, namely Poisson/Normal, losses and centroid combiners with data
+    sampled from either the normal or Poisson distribution. We expect to see that
+    the loss/centroid combiner that matches the true distribution will perform better
+    as it more accurately measures distance for the relevant distribution.
+  </p>
   <script src="kmeans.js"></script>
 
   <script>
@@ -1186,7 +1204,7 @@ function reset_panels() {
             }
             document.getElementById('spinner1').style.display='none';
             document.getElementById('spinner2').style.display='none';
-            document.getElementById('trueparams').innerHTML='With true cluster centers: ' + true_str
+            document.getElementById('trueparams').innerHTML='True cluster centers: ' + true_str
             document.getElementById('data1').innerHTML='Approximation Error: ' + Math.round(normal_error*100)/100 +'<br> Computed Centroids: ' + normal_str
             document.getElementById('data2').innerHTML='Approximation Error: ' + Math.round(poisson_error*100)/100 +'<br> Computed Centroids: ' + poisson_str
 
@@ -1211,7 +1229,7 @@ function reset_panels() {
           kmeans_graphs.style.display='none';
         }
     </script>
-    <div style='width:70%;text-align:center;margin:auto;'>
+    <div style='width:100%;text-align:center;margin:auto;'>
         <input class="btn btn-primary" onclick="reset_kmeans()" type="reset" value="↺ Reset">
         <br>
         <br>
@@ -1240,11 +1258,11 @@ function reset_panels() {
         </div>
 
     </div>
-    <div id='kmeans_graphs' class="container" style='margin:auto;display:none;text-align:center;'>
+    <div id='kmeans_graphs' class="container" style='width:100%;;margin:auto;display:none;text-align:center;'>
       <p id='ktitle'></p>
       <p id='trueparams'></p>
       <div class="row" style="margin-top:10px">
-      <div id='outerbox1' style='margin:auto;text-align:center;padding-bottom: 2%;'class="">
+      <div id='outerbox1' style='margin:auto;text-align:center;padding-bottom: 2%'class="">
         <p>K-means+Assumed Normal Distribution</p>
         <div id='spinner1'>
           <div class="spinner-border" style="width: 2rem; height: 2rem;" role="status">
@@ -1252,9 +1270,9 @@ function reset_panels() {
           </div>
 
         </div>
-        <div id='data1'></div>
+        <div id='data1' style='text-align:center;font-size: 10px;' class='body-text'></div>
         <br>
-      <div id="kmeans"  class="kmeans-chart col-md-10" align="center"></div>
+      <div id="kmeans" style='' class="kmeans-chart col-md-10" align="center"></div>
 
 
     </div>
@@ -1265,9 +1283,9 @@ function reset_panels() {
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        <div id='data2'></div>
+        <div id='data2' style='text-align:center;font-size: 10px;' class='body-text'></div>
         <br>
-      <div id="kmeans2"  class="kmeans-chart col-md-10" align="center"></div>
+      <div id="kmeans2" style='' class="kmeans-chart col-md-10" align="center"></div>
 
 
       </div>
