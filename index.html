@@ -483,6 +483,32 @@ its corresponding Bregman divergence i.e \( d_{f}(x||y) = f(x) - f(y) = \langle
   <br>
   <br>
 <section>
+  <h2 class="body-header">Asymmetric Losses: </h2>
+  <p>
+    Asymmetric losses play an important role in many machine learning
+    applications where the cost of making a mistake in one direction is not
+    the same as in the opposite direction. In this carousel, we will provide a
+    motivating example for the use of Bregman divergences in handling asymmetric
+    losses. Bregman divergences provide a natural framework for optimizing
+    objectives that involve such losses.
+  </p>
+  <br>
+  <br>
+  <style>
+  .carousel-indicators li {
+    background-color: #D3D3D3;
+}
+.carousel-indicators .active {
+    background-color: #696969;
+}
+.carousel-control-prev-icon {
+ background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+  </style>
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="7000">
     <ol class="carousel-indicators">
     <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
