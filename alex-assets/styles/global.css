@@ -52,7 +52,7 @@
   --secondary: var(--smile);
 
   --max-width: 600px;
-  --size-default: 16px;
+  --size-default: 18px;
 }
 
 body {
@@ -199,7 +199,7 @@ hr {
     color: #FA8072;
 
 
-    border-color: #FA8072 
+    border-color: #FA8072
 
 
 }
